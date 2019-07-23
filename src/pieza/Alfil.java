@@ -17,6 +17,9 @@ public class Alfil extends Pieza {
 
     @Override
     public boolean canMover(TableroManager tablero, Escaque escaqueInicio, Escaque escaqueFinal) {
+        if (!escaqueFinal.isVacio()) {
+            return false;
+        }
         int xi = escaqueInicio.getLocalizacion().x;
         int xf = escaqueFinal.getLocalizacion().x;
         int yi = escaqueInicio.getLocalizacion().y;
@@ -42,6 +45,12 @@ public class Alfil extends Pieza {
 
     @Override
     public boolean canComer(TableroManager tablero, Escaque escaqueInicio, Escaque escaqueFinal) {
+        if (escaqueInicio.getPieza().isBlanca() == escaqueFinal.getPieza().isBlanca()) {
+            return false;
+        }
+        if (escaqueFinal.isVacio()) {
+            return false;
+        }
         int xi = escaqueInicio.getLocalizacion().x;
         int xf = escaqueFinal.getLocalizacion().x;
         int yi = escaqueInicio.getLocalizacion().y;
@@ -106,7 +115,8 @@ public class Alfil extends Pieza {
     public void marcar(Graphics g, Escaque escaqueSeleccionado) {
         for (int x = 0; x < escaqueSeleccionado.getTablero().getColumnas(); x++) {
             for (int y = 0; y < escaqueSeleccionado.getTablero().getFilas(); y++) {
-                if (canComer(escaqueSeleccionado.getTablero(), escaqueSeleccionado, escaqueSeleccionado.getTablero().getEscaque(x, y))) {
+                if (canComer(escaqueSeleccionado.getTablero(), escaqueSeleccionado, escaqueSeleccionado.getTablero().getEscaque(x, y)) ||
+                        canMover(escaqueSeleccionado.getTablero(), escaqueSeleccionado, escaqueSeleccionado.getTablero().getEscaque(x, y))) {
                     if (!escaqueSeleccionado.getTablero().getEscaque(x, y).equals(escaqueSeleccionado)) {
                         g.fillOval((int) ((x + 0.3) * Settings.TILE_SIZE), (int) ((y + 0.3) * Settings.TILE_SIZE), Settings.CIRCULO, Settings.CIRCULO);
                     }
