@@ -8,7 +8,7 @@ import pieza.base.Pieza;
 public class Vacia extends Pieza{
 
     public Vacia() {
-        super("Vacia", false, null, null);
+        super("vacia", false, null, null);
     }
 
     @Override
@@ -22,7 +22,7 @@ public class Vacia extends Pieza{
     }
 
     @Override
-    public boolean canUsarHabilidad(TableroManager tablero, Escaque b, Escaque a) {
+    public boolean canUsarHabilidad(TableroManager tablero, Escaque b, String informacionExtra) {
         return false;
     }
 
@@ -31,6 +31,6 @@ public class Vacia extends Pieza{
     }
 
     @Override
-    public void habilidad(TableroManager tablero, Escaque escaqueInicio, Escaque escaqueFinal) {
+    public void habilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra) {
     }
 }

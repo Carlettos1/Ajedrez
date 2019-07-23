@@ -10,9 +10,8 @@ import util.Habilidad;
 import util.Settings;
 
 public class Peon extends Pieza {
-
     public Peon(boolean isBlanca) {
-        super("Peón", isBlanca, Arrays.asList(new EnumTipo[]{EnumTipo.biologico, EnumTipo.transportable}), new Habilidad("Coronar", "Corona al peón", 0, 1));
+        super("peon", isBlanca, Arrays.asList(new EnumTipo[]{EnumTipo.biologico, EnumTipo.transportable}), new Habilidad("Coronar", "Corona al peón", 0, 1));
     }
 
     @Override
@@ -69,15 +68,13 @@ public class Peon extends Pieza {
         return false;
     }
 
-    /**
-     * @param tablero
-     * @param escaqueInicio
-     * @param escaqueFinal DEBE SER IGUAL AL ESCAQUE INICIO
-     * @return 
-     */
     @Override
-    public boolean canUsarHabilidad(TableroManager tablero, Escaque escaqueInicio, Escaque escaqueFinal) {
-        System.out.println((isBlanca() ? "blanca " : "negra ") + "y = " + escaqueInicio.getLocalizacion().y);
+    public boolean canUsarHabilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra) {
+        
+        if(!(informacionExtra.equals("peon") || informacionExtra.equals("alfil"))){
+            return false;
+        }
+        
         if(escaqueInicio.getPieza().isBlanca()){
             if(escaqueInicio.getLocalizacion().y == Settings.Y - 1){
                 return true;
@@ -120,7 +117,12 @@ public class Peon extends Pieza {
     }
 
     @Override
-    public void habilidad(TableroManager tablero, Escaque escaqueInicio, Escaque escaqueFinal) {
-        escaqueInicio.setPieza(new Peon(!isBlanca()));
+    public void habilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra) {
+        if(informacionExtra.equals("peon")){
+            escaqueInicio.setPieza(new Peon(escaqueInicio.getPieza().isBlanca()));
+        }
+        if(informacionExtra.equals("alfil")){
+            escaqueInicio.setPieza(new Alfil(escaqueInicio.getPieza().isBlanca()));
+        }
     }
 }

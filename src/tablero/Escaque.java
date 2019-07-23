@@ -51,8 +51,8 @@ public final class Escaque extends JComponent{
         return this.getPieza().equals(new Vacia());
     }
     
-    public boolean habilidadPieza(Escaque escaqueFinal){
-        getPieza().habilidad(tablero, this, escaqueFinal);
+    public boolean habilidadPieza(String info){
+        getPieza().habilidad(tablero, this, info);
         return true;
     }
 

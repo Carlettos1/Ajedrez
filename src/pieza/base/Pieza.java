@@ -1,6 +1,7 @@
 package pieza.base;
 
 import java.awt.Graphics;
+import java.util.ArrayList;
 import tablero.TableroManager;
 import tipo.EnumTipo;
 import java.util.List;
@@ -22,9 +23,9 @@ public abstract class Pieza {
     }
     
     public abstract boolean canMover(TableroManager tablero, Escaque escaqueInicio, Escaque escaqueFinal);
-    public abstract void habilidad(TableroManager tablero, Escaque escaqueInicio, Escaque escaqueFinal);
     public abstract boolean canComer(TableroManager tablero, Escaque escaqueInicio, Escaque escaqueFinal);
-    public abstract boolean canUsarHabilidad(TableroManager tablero, Escaque escaqueInicio, Escaque escaqueFinal);
+    public abstract boolean canUsarHabilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra);
+    public abstract void habilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra);
     public abstract void marcar(Graphics g, Escaque escaqueSeleccionado);
 
     public boolean isBlanca() {
@@ -66,6 +67,4 @@ public abstract class Pieza {
     public String toString() {
         return "Pieza{" + "isBlanca=" + isBlanca + ", nombre=" + nombre + "}";
     }
-    
-    
 }

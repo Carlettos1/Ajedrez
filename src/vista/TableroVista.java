@@ -1,27 +1,44 @@
 package vista;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 import tablero.Escaque;
 import tablero.TableroManager;
 import util.Settings;
 
 public final class TableroVista extends javax.swing.JPanel {
 
+    private final JButton boton;
+    private final JLabel label;
+    private final JTextField informacionExtra;
+
     private final TableroManager tablero;
 
     public TableroVista(TableroManager tablero) {
         initComponents();
         this.tablero = tablero;
-        JButton boton = new JButton("Usar Habilidad");
+
+        label = new JLabel("Acá va la info adicional:");
+        label.setBounds((tablero.getColumnas()) * Settings.TILE_SIZE + 10, 60, Settings.ANCHO_BOTON, 20);
+        add(label);
+
+        informacionExtra = new JTextField();
+        informacionExtra.setBounds((tablero.getColumnas()) * Settings.TILE_SIZE + 10, 80, Settings.ANCHO_BOTON, 30);
+        informacionExtra.setVisible(true);
+        add(informacionExtra);
+
+        boton = new JButton("Usar Habilidad");
         boton.setBounds((tablero.getColumnas()) * Settings.TILE_SIZE + 10, 10, Settings.ANCHO_BOTON, 30);
         boton.addActionListener((ActionEvent e) -> {
             if (tablero.isAnyoneSelected()) {
                 Escaque escaque = tablero.getFirstSelected();
-                if (escaque.getPieza().canUsarHabilidad(tablero, escaque, escaque)) {
-                    escaque.habilidadPieza(escaque);
+                if (escaque.getPieza().canUsarHabilidad(tablero, escaque, informacionExtra.getText())) {
+                    escaque.habilidadPieza(informacionExtra.getText());
                     escaque.setIsSelected(false);
                     repaint();
                 }
@@ -29,6 +46,7 @@ public final class TableroVista extends javax.swing.JPanel {
         });
         boton.setVisible(true);
         add(boton);
+
         repaint();
     }
 
@@ -63,6 +81,10 @@ public final class TableroVista extends javax.swing.JPanel {
             Escaque selected = tablero.getFirstSelected();
             g.setColor(Color.LIGHT_GRAY);
             selected.getPieza().marcar(g, selected);
+            g.setColor(new Color(0, 0, 255, 50));
+            g.fillRect(selected.getLocalizacion().x * Settings.TILE_SIZE,
+                    selected.getLocalizacion().y * Settings.TILE_SIZE,
+                    Settings.TILE_SIZE, Settings.TILE_SIZE);
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
