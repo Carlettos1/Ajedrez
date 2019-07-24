@@ -10,6 +10,7 @@ import util.Habilidad;
 import util.Settings;
 
 public class Peon extends Pieza {
+
     public Peon(boolean isBlanca) {
         super("peon", isBlanca, Arrays.asList(new EnumTipo[]{EnumTipo.biologico, EnumTipo.transportable}), new Habilidad("Coronar", "Corona al peón", 0, 1));
     }
@@ -70,17 +71,20 @@ public class Peon extends Pieza {
 
     @Override
     public boolean canUsarHabilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra) {
-        
-        if(!(informacionExtra.equals("peon") || informacionExtra.equals("alfil") || informacionExtra.equals("torre"))){
+
+        if (!(informacionExtra.equals("peon")
+                || informacionExtra.equals("alfil")
+                || informacionExtra.equals("torre")
+                || informacionExtra.equals("caballo"))) {
             return false;
         }
-        
-        if(escaqueInicio.getPieza().isBlanca()){
-            if(escaqueInicio.getLocalizacion().y == Settings.Y - 1){
+
+        if (escaqueInicio.getPieza().isBlanca()) {
+            if (escaqueInicio.getLocalizacion().y == Settings.Y - 1) {
                 return true;
             }
-        } else{
-            if(escaqueInicio.getLocalizacion().y == 0){
+        } else {
+            if (escaqueInicio.getLocalizacion().y == 0) {
                 return true;
             }
         }
@@ -118,14 +122,17 @@ public class Peon extends Pieza {
 
     @Override
     public void habilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra) {
-        if(informacionExtra.equals("peon")){
+        if (informacionExtra.equals("peon")) {
             escaqueInicio.setPieza(new Peon(escaqueInicio.getPieza().isBlanca()));
         }
-        if(informacionExtra.equals("alfil")){
+        if (informacionExtra.equals("alfil")) {
             escaqueInicio.setPieza(new Alfil(escaqueInicio.getPieza().isBlanca()));
-        } 
-        if(informacionExtra.equals("torre")){
+        }
+        if (informacionExtra.equals("torre")) {
             escaqueInicio.setPieza(new Torre(escaqueInicio.getPieza().isBlanca()));
+        }
+        if (informacionExtra.equals("caballo")) {
+            escaqueInicio.setPieza(new Caballo(escaqueInicio.getPieza().isBlanca()));
         }
     }
 }
