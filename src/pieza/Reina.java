@@ -11,7 +11,7 @@ import util.Settings;
 public class Reina extends Pieza {
 
     public Reina(boolean isBlanca) {
-        super("Reina", isBlanca, Arrays.asList(new EnumTipo[]{EnumTipo.heroica, EnumTipo.inmune, EnumTipo.transportable}),
+        super("Reina", isBlanca, Arrays.asList(new EnumTipo[]{EnumTipo.heroica, EnumTipo.inmune, EnumTipo.transportable, EnumTipo.biologico}),
                 new Habilidad("Movimiento caballístico", "Permite a la reina mover y comer como caballo", 5, 1,
                         "No hay restricciones"
                         + "\nNecesita que se le especifique el movimiento en x y en y que debe hacer"

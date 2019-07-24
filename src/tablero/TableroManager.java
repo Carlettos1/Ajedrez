@@ -5,6 +5,9 @@ import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.List;
+import pieza.Torre;
 import pieza.Vacia;
 import pieza.base.Pieza;
 import util.Settings;
@@ -154,7 +157,7 @@ public class TableroManager {
     public void show() {
         for (Escaque[] escaques : tablero) {
             for (Escaque escaque : escaques) {
-                System.out.print(escaque.getPieza().getNombre().substring(0, 1) +(escaque.isSelected() ? "-S " : "   "));
+                System.out.print(escaque.getPieza().getNombre().substring(0, 1) + (escaque.isSelected() ? "-S " : "   "));
             }
             System.out.println("");
         }
@@ -180,5 +183,27 @@ public class TableroManager {
             }
         }
         return null;
+    }
+
+    public List<Escaque> getEscaquesCercanos(Escaque escaque) {
+
+        List<Escaque> escaques = new ArrayList<>();
+
+        int xInicio = escaque.getLocalizacion().x;
+        int yInicio = escaque.getLocalizacion().y;
+
+        for (int x = 0; x < 3; x++) {
+            for (int y = 0; y < 3; y++) {
+                if (x == y && x == 1) {
+                    continue;
+                }
+                if (yInicio + y - 1 < Settings.Y && yInicio + y - 1 >= 0) {
+                    if (xInicio + x - 1 < Settings.X && xInicio + x - 1 >= 0) {
+                        escaques.add(getEscaque(xInicio + x - 1, yInicio + y - 1));
+                    }
+                }
+            }
+        }
+        return escaques;
     }
 }
