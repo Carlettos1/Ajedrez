@@ -41,6 +41,7 @@ public class RelojHandler {
             for (Escaque[] escaques : tablero.getTablero()) {
                 for (Escaque escaque : escaques) {
                     escaque.getPieza().disminurCd();
+                    escaque.getPieza().setSeHaMovidoEsteTurno(false);
                 }
             }
         }

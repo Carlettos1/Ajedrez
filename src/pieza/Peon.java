@@ -25,6 +25,10 @@ public class Peon extends Pieza {
         if (!escaqueFinal.isVacio()) {
             return false;
         }
+        
+        if (seHaMovidoEsteTurno()) {
+            return false;
+        }
 
         if (escaqueFinal.getLocalizacion().x != escaqueInicio.getLocalizacion().x) {
             return false;
@@ -58,6 +62,10 @@ public class Peon extends Pieza {
         if (escaqueInicio.getPieza().isBlanca() == escaqueFinal.getPieza().isBlanca()) {
             return false;
         }
+        
+        if (seHaMovidoEsteTurno()) {
+            return false;
+        }
         if (!escaqueInicio.getPieza().isBlanca()) {//TODO
             if (escaqueFinal.getLocalizacion().y - 1 == escaqueInicio.getLocalizacion().y
                     && (escaqueFinal.getLocalizacion().x == escaqueInicio.getLocalizacion().x + 1
@@ -77,6 +85,10 @@ public class Peon extends Pieza {
     @Override
     public boolean canUsarHabilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra, Jugador jugador) {
         if(!super.canUsarHabilidad(tablero, escaqueInicio, informacionExtra, jugador)){
+            return false;
+        }
+        
+        if (seHaMovidoEsteTurno()) {
             return false;
         }
         if (!(informacionExtra.equals("peon")
@@ -144,7 +156,7 @@ public class Peon extends Pieza {
         if (informacionExtra.equals("reina")) {
             escaqueInicio.setPieza(new Reina(escaqueInicio.getPieza().isBlanca()));
         }
-        
-        super.habilidad(tablero, escaqueInicio, informacionExtra, jugador);
+        escaqueInicio.getPieza().setSeHaMovidoEsteTurno(true);
+        escaqueInicio.getPieza().setCdActual(escaqueInicio.getPieza().getHabilidad().getCD());
     }
 }

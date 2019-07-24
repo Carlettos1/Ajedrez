@@ -24,6 +24,10 @@ public class Alfil extends Pieza {
         if (!escaqueFinal.isVacio()) {
             return false;
         }
+        
+        if (seHaMovidoEsteTurno()) {
+            return false;
+        }
         int xInicio = escaqueInicio.getLocalizacion().x;
         int xFinal = escaqueFinal.getLocalizacion().x;
         int yInicio = escaqueInicio.getLocalizacion().y;
@@ -55,6 +59,10 @@ public class Alfil extends Pieza {
         if (escaqueFinal.isVacio()) {
             return false;
         }
+        
+        if (seHaMovidoEsteTurno()) {
+            return false;
+        }
         int xInicio = escaqueInicio.getLocalizacion().x;
         int xFinal = escaqueFinal.getLocalizacion().x;
         int yInicio = escaqueInicio.getLocalizacion().y;
@@ -81,6 +89,10 @@ public class Alfil extends Pieza {
     @Override
     public boolean canUsarHabilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra, Jugador jugador) {
         if(!super.canUsarHabilidad(tablero, escaqueInicio, informacionExtra, jugador)){
+            return false;
+        }
+        
+        if (seHaMovidoEsteTurno()) {
             return false;
         }
         switch (informacionExtra) {

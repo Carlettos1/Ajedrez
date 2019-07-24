@@ -28,6 +28,10 @@ public class Torre extends Pieza {
         if (!escaqueFinal.isVacio()) {
             return false;
         }
+        
+        if (seHaMovidoEsteTurno()) {
+            return false;
+        }
         int xInicio = escaqueInicio.getLocalizacion().x;
         int xFinal = escaqueFinal.getLocalizacion().x;
         int yInicio = escaqueInicio.getLocalizacion().y;
@@ -60,6 +64,10 @@ public class Torre extends Pieza {
             return false;
         }
         if (escaqueFinal.isVacio()) {
+            return false;
+        }
+        
+        if (seHaMovidoEsteTurno()) {
             return false;
         }
         int xInicio = escaqueInicio.getLocalizacion().x;
@@ -162,6 +170,10 @@ public class Torre extends Pieza {
         if (!super.canUsarHabilidad(tablero, escaqueInicio, informacionExtra, jugador)) {
             return false;
         }
+        
+        if (seHaMovidoEsteTurno()) {
+            return false;
+        }
         return (informacionExtra.equals("arriba")
                 || informacionExtra.equals("abajo")
                 || informacionExtra.equals("derecha")
@@ -199,6 +211,7 @@ public class Torre extends Pieza {
 
         for (Escaque torre : escaquesTorres) {
             torre.getPieza().setCdActual(torre.getPieza().getHabilidad().getCD());
+            torre.getPieza().setSeHaMovidoEsteTurno(true);
         }
 
         switch (informacionExtra) {

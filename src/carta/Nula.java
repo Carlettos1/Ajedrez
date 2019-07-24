@@ -15,6 +15,6 @@ public class Nula extends Carta{
     }
 
     @Override
-    public void usarCartaA(Escaque escaqueObjetivo) {
+    public void usarCarta(Escaque escaqueObjetivo) {
     }
 }

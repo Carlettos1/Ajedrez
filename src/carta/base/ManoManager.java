@@ -47,7 +47,7 @@ public class ManoManager {
                         if (carta != null) {
                             if (carta.getCarta().isBlanca() == carta.getMano().getTablero().getReloj().getJugadorTurnoActual().isBlanco()) {
                                 if (carta.getCarta().canUsarCarta(escaque)) {
-                                    carta.getCarta().usarCartaA(escaque);
+                                    carta.getCarta().usarCarta(escaque);
                                     vista.repaint();
                                 }
                             }

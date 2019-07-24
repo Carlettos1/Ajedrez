@@ -28,6 +28,10 @@ public class Rey extends Pieza {
         if (!escaqueFinal.isVacio()) {
             return false;
         }
+        
+        if (seHaMovidoEsteTurno()) {
+            return false;
+        }
 
         int xInicio = escaqueInicio.getLocalizacion().x;
         int xFinal = escaqueFinal.getLocalizacion().x;
@@ -57,6 +61,10 @@ public class Rey extends Pieza {
             return false;
         }
         if (escaqueFinal.isVacio()) {
+            return false;
+        }
+        
+        if (seHaMovidoEsteTurno()) {
             return false;
         }
 

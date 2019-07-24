@@ -32,6 +32,7 @@ public class TableroManager {
             if (escaque.isVacio() && !escaque.getTablero().isAnyoneSelected()) {
                 return;
             }
+            
             Container panel = escaque.getParent().getParent().getParent().getParent().getParent();
 
             if (escaque.getTablero().isAnyoneSelected()) {

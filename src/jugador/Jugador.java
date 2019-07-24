@@ -5,7 +5,7 @@ import carta.base.ManoManager;
 public class Jugador {
 
     private final boolean isBlanco;
-    private final int movimientosPorTurno;
+    private int movimientosPorTurno;
     private int mana;
     private final ManoManager mano;
 
@@ -40,6 +40,10 @@ public class Jugador {
         mana += quantity;
     }
     
+    public void addTurno(int quantity){
+        movimientosPorTurno += quantity;
+    }
+            
     public String getColor(){
         return isBlanco() ? "Blanco": "Negro";
     }

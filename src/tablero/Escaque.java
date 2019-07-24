@@ -64,6 +64,7 @@ public final class Escaque extends JComponent{
         if (!getPieza().canMover(tablero, this, escaqueFinal)) {
             return false;
         }
+        getPieza().setSeHaMovidoEsteTurno(true);
         escaqueFinal.setPieza(getPieza());
         quitarPieza();
         return true;
@@ -73,6 +74,7 @@ public final class Escaque extends JComponent{
         if (!getPieza().canComer(tablero, this, escaqueFinal)) {
             return false;
         }
+        getPieza().setSeHaMovidoEsteTurno(true);
         escaqueFinal.setPieza(getPieza());
         quitarPieza();
         return true;

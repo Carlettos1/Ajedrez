@@ -17,6 +17,7 @@ public abstract class Pieza {
     protected final String nombre;
     protected final Habilidad habilidad;
     protected int cdActual = 0;
+    protected boolean seHaMovidoEsteTurno = false;
 
     public Pieza(String nombre, boolean isBlanca, List<EnumTipo> tipos, Habilidad habilidad) {
         this.isBlanca = isBlanca;
@@ -42,6 +43,7 @@ public abstract class Pieza {
 
     public void habilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra, Jugador jugador) {
         setCdActual(getHabilidad().getCD());
+        setSeHaMovidoEsteTurno(true);
     }
 
     public void marcar(Graphics g, Escaque escaqueSeleccionado) {
@@ -86,6 +88,14 @@ public abstract class Pieza {
 
     public String getNombre() {
         return nombre;
+    }
+
+    public boolean seHaMovidoEsteTurno() {
+        return seHaMovidoEsteTurno;
+    }
+
+    public void setSeHaMovidoEsteTurno(boolean seHaMovidoEsteTurno) {
+        this.seHaMovidoEsteTurno = seHaMovidoEsteTurno;
     }
 
     @Override

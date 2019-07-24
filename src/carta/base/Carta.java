@@ -27,7 +27,7 @@ public abstract class Carta {
     }
     
     public abstract boolean canUsarCarta(Escaque escaqueObjetivo);
-    public abstract void usarCartaA(Escaque escaqueObjetivo);
+    public abstract void usarCarta(Escaque escaqueObjetivo);
 
     public boolean isBlanca() {
         return isBlanca;

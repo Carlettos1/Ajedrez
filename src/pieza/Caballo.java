@@ -25,6 +25,10 @@ public class Caballo extends Pieza {
         if (!escaqueFinal.isVacio()) {
             return false;
         }
+        
+        if (seHaMovidoEsteTurno()) {
+            return false;
+        }
         int xInicio = escaqueInicio.getLocalizacion().x;
         int yInicio = escaqueInicio.getLocalizacion().y;
 
@@ -79,6 +83,10 @@ public class Caballo extends Pieza {
         if (escaqueInicio.getPieza().isBlanca() == escaqueFinal.getPieza().isBlanca()) {
             return false;
         }
+        
+        if (seHaMovidoEsteTurno()) {
+            return false;
+        }
         int xInicio = escaqueInicio.getLocalizacion().x;
         int yInicio = escaqueInicio.getLocalizacion().y;
 
@@ -128,6 +136,10 @@ public class Caballo extends Pieza {
     @Override
     public boolean canUsarHabilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra, Jugador jugador) {
         if(!super.canUsarHabilidad(tablero, escaqueInicio, informacionExtra, jugador)){
+            return false;
+        }
+        
+        if (seHaMovidoEsteTurno()) {
             return false;
         }
         int x = escaqueInicio.getLocalizacion().x;

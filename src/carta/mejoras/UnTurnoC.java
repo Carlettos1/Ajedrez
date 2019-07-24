@@ -1,32 +1,29 @@
-package carta.summon;
+package carta.mejoras;
 
 import carta.base.Carta;
 import java.util.ArrayList;
-import pieza.Torre;
 import pieza.Vacia;
 import tablero.Escaque;
 
-public class TorreC extends Carta {
+public class UnTurnoC extends Carta{
 
-    public TorreC(boolean isBlanca) {
-        super(isBlanca, new Vacia(), 0, 2, 0, new ArrayList<>(), "Colocar Torre", "Coloca una torre");
+    public UnTurnoC(boolean isBlanca) {
+        super(isBlanca, new Vacia(), 0, 0, 0, new ArrayList<>(), "Movimiento +1", "Da 1 movimiento mas por turno");
     }
 
     @Override
     public boolean canUsarCarta(Escaque escaqueObjetivo) {
-        if (escaqueObjetivo.isVacio()) {
-            return true;
-        }
-        return false;
+        return true;
     }
 
     @Override
     public void usarCarta(Escaque escaqueObjetivo) {
-        escaqueObjetivo.setPieza(new Torre(isBlanca()));
         if (isBlanca()) {
             escaqueObjetivo.getTablero().getJugadorBlanco().getMano().quitarCarta(this);
+            escaqueObjetivo.getTablero().getJugadorBlanco().addTurno(1);
         } else {
             escaqueObjetivo.getTablero().getJugadorNegro().getMano().quitarCarta(this);
+            escaqueObjetivo.getTablero().getJugadorNegro().addTurno(1);
         }
         escaqueObjetivo.getTablero().getReloj().movimientoHecho();
     }

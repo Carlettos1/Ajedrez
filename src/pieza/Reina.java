@@ -26,6 +26,10 @@ public class Reina extends Pieza {
         if (!escaqueFinal.isVacio()) {
             return false;
         }
+        
+        if (seHaMovidoEsteTurno()) {
+            return false;
+        }
 
         boolean mueveComoAlfil = false;
 
@@ -85,6 +89,10 @@ public class Reina extends Pieza {
         if (escaqueFinal.isVacio()) {
             return false;
         }
+        
+        if (seHaMovidoEsteTurno()) {
+            return false;
+        }
 
         boolean mueveComoAlfil = false;
 
@@ -139,6 +147,10 @@ public class Reina extends Pieza {
     @Override
     public boolean canUsarHabilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra, Jugador jugador) {
         if(!super.canUsarHabilidad(tablero, escaqueInicio, informacionExtra, jugador)){
+            return false;
+        }
+        
+        if (seHaMovidoEsteTurno()) {
             return false;
         }
         if (!(informacionExtra.equals("1 2")
