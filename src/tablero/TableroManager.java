@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
+import jugador.Jugador;
 import pieza.Alfil;
 import pieza.Caballo;
 import pieza.Peon;
@@ -38,18 +39,26 @@ public class TableroManager {
                     escaque.setIsSelected(false);
                 } else {
                     if (escaque.isVacio()) {
-                        anteriorSelected.moverPieza(escaque);
+                        if (anteriorSelected.moverPieza(escaque)) {
+                            escaque.getTablero().getReloj().movimientoHecho();
+                        }
                         anteriorSelected.setIsSelected(false);
-                    } else if (escaque.getPieza().isBlanca() == anteriorSelected.getPieza().isBlanca()){
+                    } else if (escaque.getPieza().isBlanca() == anteriorSelected.getPieza().isBlanca()) {
                         anteriorSelected.setIsSelected(false);
                         escaque.setIsSelected(true);
                     } else {
-                        anteriorSelected.comerPieza(escaque);
+                        if (anteriorSelected.comerPieza(escaque)) {
+                            escaque.getTablero().getReloj().movimientoHecho();
+                        }
                         anteriorSelected.setIsSelected(false);
                     }
                 }
             } else {
-                escaque.setIsSelected(true);
+                if (escaque.getTablero().getReloj().isTurnoBlancas() && escaque.getPieza().isBlanca()) {
+                    escaque.setIsSelected(true);
+                } else if (escaque.getTablero().getReloj().isTurnoBlancas() == escaque.getPieza().isBlanca()) {
+                    escaque.setIsSelected(true);
+                }
             }
             panel.repaint();
             escaque.getTablero().show();
@@ -70,12 +79,30 @@ public class TableroManager {
     private final Escaque[][] tablero;
     private final int columnas;
     private final int filas;
+    private final Jugador jugadorBlanco;
+    private final Jugador jugadorNegro;
+    private final Baraja barajaJugadorBlanco;
+    private final Baraja barajaJugadorNegro;
+    private final RelojHandler reloj;
 
-    public TableroManager(int columnas, int filas) {
+    public TableroManager(int columnas, int filas, RelojHandler reloj, Baraja barajaJugadorNegro, Baraja barajaJugadorBlanco) {
+        this(columnas, filas, reloj, reloj.getJugadorBlanco(), reloj.getJugadorNegro(), barajaJugadorNegro, barajaJugadorBlanco);
+    }
+
+    public TableroManager(int columnas, int filas, Jugador jugadorBlanco, Jugador jugadorNegro, Baraja barajaJugadorNegro, Baraja barajaJugadorBlanco) {
+        this(columnas, filas, new RelojHandler(jugadorBlanco, jugadorNegro), jugadorBlanco, jugadorNegro, barajaJugadorNegro, barajaJugadorBlanco);
+    }
+
+    public TableroManager(int columnas, int filas, RelojHandler reloj, Jugador jugadorBlanco, Jugador jugadorNegro, Baraja barajaJugadorNegro, Baraja barajaJugadorBlanco) {
         this.tablero = new Escaque[filas][columnas];
         this.columnas = columnas;
         this.filas = filas;
         iniciarTableroVacio();
+        this.reloj = reloj;
+        this.jugadorBlanco = jugadorBlanco;
+        this.jugadorNegro = jugadorNegro;
+        this.barajaJugadorBlanco = barajaJugadorBlanco;
+        this.barajaJugadorNegro = barajaJugadorNegro;
     }
 
     private void iniciarTableroVacio() {
@@ -173,7 +200,7 @@ public class TableroManager {
     }
 
     public static TableroManager getDefaultState() {
-        TableroManager tm = new TableroManager(Settings.X, Settings.Y);
+        TableroManager tm = new TableroManager(Settings.X, Settings.Y, new RelojHandler(new Jugador(true), new Jugador(false)), new Baraja(), new Baraja());
         if (Settings.X < 8 || Settings.Y < 8) {
             return tm;
         }
@@ -203,5 +230,25 @@ public class TableroManager {
         tm.setPieza(Settings.X - 4, Settings.Y - 1, new Rey(true));
 
         return tm;
+    }
+
+    public Jugador getJugadorBlanco() {
+        return jugadorBlanco;
+    }
+
+    public Jugador getJugadorNegro() {
+        return jugadorNegro;
+    }
+
+    public Baraja getBarajaJugadorBlanco() {
+        return barajaJugadorBlanco;
+    }
+
+    public Baraja getBarajaJugadorNegro() {
+        return barajaJugadorNegro;
+    }
+
+    public RelojHandler getReloj() {
+        return reloj;
     }
 }
