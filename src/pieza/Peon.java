@@ -33,7 +33,7 @@ public class Peon extends Pieza {
             return false;
         }
 
-        if (escaqueInicio.getPieza().isBlanca()) {
+        if (!escaqueInicio.getPieza().isBlanca()) {//TODO
             if (escaqueFinal.getLocalizacion().y < escaqueInicio.getLocalizacion().y) {
                 return false;
             } else if (!escaqueInicio.getTablero().getEscaque(escaqueInicio.getLocalizacion().x, escaqueInicio.getLocalizacion().y + 1).isVacio()) {
@@ -57,7 +57,7 @@ public class Peon extends Pieza {
         if (escaqueInicio.getPieza().isBlanca() == escaqueFinal.getPieza().isBlanca()) {
             return false;
         }
-        if (escaqueInicio.getPieza().isBlanca()) {
+        if (!escaqueInicio.getPieza().isBlanca()) {//TODO
             if (escaqueFinal.getLocalizacion().y - 1 == escaqueInicio.getLocalizacion().y
                     && (escaqueFinal.getLocalizacion().x == escaqueInicio.getLocalizacion().x + 1
                     || escaqueFinal.getLocalizacion().x == escaqueInicio.getLocalizacion().x - 1)) {
@@ -84,7 +84,7 @@ public class Peon extends Pieza {
             return false;
         }
 
-        if (escaqueInicio.getPieza().isBlanca()) {
+        if (!escaqueInicio.getPieza().isBlanca()) {//TODO
             if (escaqueInicio.getLocalizacion().y == Settings.Y - 1) {
                 return true;
             }
@@ -100,7 +100,7 @@ public class Peon extends Pieza {
     public void marcar(Graphics g, Escaque escaqueSeleccionado) {
         int x = escaqueSeleccionado.getLocalizacion().x;
         int y = escaqueSeleccionado.getLocalizacion().y;
-        int direccion = isBlanca() ? 1 : -1;
+        int direccion = !isBlanca() ? 1 : -1;//TODO
         System.out.println("direccion = " + direccion);
         if (y + direccion >= 0 && y + direccion < Settings.Y) {
             if (canMover(escaqueSeleccionado.getTablero(), escaqueSeleccionado, escaqueSeleccionado.getTablero().getEscaque(x, y + direccion))) {

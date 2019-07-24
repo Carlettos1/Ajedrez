@@ -7,6 +7,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
+import pieza.Alfil;
+import pieza.Caballo;
+import pieza.Peon;
+import pieza.Reina;
+import pieza.Rey;
 import pieza.Torre;
 import pieza.Vacia;
 import pieza.base.Pieza;
@@ -205,5 +210,38 @@ public class TableroManager {
             }
         }
         return escaques;
+    }
+
+    public static TableroManager getDefaultState() {
+        TableroManager tm = new TableroManager(Settings.X, Settings.Y);
+        if (Settings.X < 8 || Settings.Y < 8) {
+            return tm;
+        }
+        for (int x = 0; x < Settings.X; x++) {
+            tm.setPieza(x, Settings.Y - 2, new Peon(true));
+            tm.setPieza(x, 1, new Peon(false));
+        }
+        
+        tm.setPieza(0, 0, new Torre(false));
+        tm.setPieza(Settings.X - 1, 0, new Torre(false));
+        tm.setPieza(0, Settings.Y - 1, new Torre(true));
+        tm.setPieza(Settings.X - 1, Settings.Y - 1, new Torre(true));
+        
+        tm.setPieza(1, 0, new Caballo(false));
+        tm.setPieza(Settings.X - 2, 0, new Caballo(false));
+        tm.setPieza(1, Settings.Y - 1, new Caballo(true));
+        tm.setPieza(Settings.X - 2, Settings.Y - 1, new Caballo(true));
+        
+        tm.setPieza(2, 0, new Alfil(false));
+        tm.setPieza(Settings.X - 3, 0, new Alfil(false));
+        tm.setPieza(2, Settings.Y - 1, new Alfil(true));
+        tm.setPieza(Settings.X - 3, Settings.Y - 1, new Alfil(true));
+        
+        tm.setPieza(3, 0, new Reina(false));
+        tm.setPieza(Settings.X - 4, 0, new Rey(false));
+        tm.setPieza(3, Settings.Y - 1, new Reina(true));
+        tm.setPieza(Settings.X - 4, Settings.Y - 1, new Rey(true));
+        
+        return tm;
     }
 }

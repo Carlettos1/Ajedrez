@@ -91,6 +91,7 @@ public final class TableroVista extends javax.swing.JPanel {
 
                 g.setColor((x + y) % 2 == 1 ? Color.WHITE : Color.BLACK);
                 if (!tablero.getEscaque(x, y).isVacio()) {
+                    //TODO drawImage
                     g.drawString(tablero.getEscaque(x, y).getPieza().getNombre(), x * Settings.TILE_SIZE + 2, y * Settings.TILE_SIZE + 15);
                     g.drawString(tablero.getEscaque(x, y).getPieza().isBlanca() ? "Blanco" : "Negro", x * Settings.TILE_SIZE + 2, y * Settings.TILE_SIZE + 25);
                 }
