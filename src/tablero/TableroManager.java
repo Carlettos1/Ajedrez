@@ -1,7 +1,6 @@
 package tablero;
 
 import java.awt.Container;
-import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -26,77 +25,38 @@ public class TableroManager {
 
         @Override
         public void mousePressed(MouseEvent e) {
-            System.out.println("Pressed!");
-            if (!(e.getSource() instanceof Escaque)) {
-                return;
-            }
             Escaque escaque = (Escaque) (e.getSource());
+
             if (escaque.isVacio() && !escaque.getTablero().isAnyoneSelected()) {
                 return;
             }
-            Container parent = escaque.getParent().getParent().getParent().getParent().getParent();
+            Container panel = escaque.getParent().getParent().getParent().getParent().getParent();
 
             if (escaque.getTablero().isAnyoneSelected()) {
                 Escaque anteriorSelected = escaque.getTablero().getFirstSelected();
                 if (anteriorSelected.equals(escaque)) {
                     escaque.setIsSelected(false);
                 } else {
-                    if ((escaque.getPieza().isBlanca() == anteriorSelected.getPieza().isBlanca()) && !escaque.isVacio()) {
-                        escaque.setIsSelected(true);
+                    if (escaque.isVacio()) {
+                        anteriorSelected.moverPieza(escaque);
                         anteriorSelected.setIsSelected(false);
-                    } else if (escaque.isVacio()) {
-                        if (anteriorSelected.moverPieza(escaque)) {
-                            escaque.setIsSelected(false);
-                            anteriorSelected.setIsSelected(false);
-                        } else {
-                            escaque.setIsSelected(false);
-                            anteriorSelected.setIsSelected(false);
-                        }
+                    } else if (escaque.getPieza().isBlanca() == anteriorSelected.getPieza().isBlanca()){
+                        anteriorSelected.setIsSelected(false);
+                        escaque.setIsSelected(true);
                     } else {
-                        if (anteriorSelected.comerPieza(escaque)) {
-                            escaque.setIsSelected(false);
-                            anteriorSelected.setIsSelected(false);
-                        } else {
-                            escaque.setIsSelected(true);
-                            anteriorSelected.setIsSelected(false);
-                        }
+                        anteriorSelected.comerPieza(escaque);
+                        anteriorSelected.setIsSelected(false);
                     }
                 }
             } else {
                 escaque.setIsSelected(true);
             }
-            parent.repaint();
+            panel.repaint();
             escaque.getTablero().show();
         }
 
         @Override
         public void mouseReleased(MouseEvent e) {
-            System.out.println("Released!");
-            if (!(e.getSource() instanceof Escaque)) {
-                return;
-            }
-
-            Escaque escaque = (Escaque) (e.getSource());
-
-            if (escaque.isVacio()) {
-                return;
-            }
-
-            Container parent = escaque.getParent().getParent().getParent().getParent().getParent();
-            Point loc = parent.getLocation();
-            int x = (MouseInfo.getPointerInfo().getLocation().x - loc.x + 38) / Settings.TILE_SIZE - 1;
-            int y = (MouseInfo.getPointerInfo().getLocation().y - loc.y + 7) / Settings.TILE_SIZE - 1;
-            Escaque destino = escaque.getTablero().getEscaque(x, y);
-
-            if (destino.equals(escaque)) {
-                return;
-            }
-
-            escaque.moverPieza(destino);
-            escaque.comerPieza(destino);
-            parent.repaint();
-            escaque.setIsSelected(false);
-            escaque.getTablero().show();
         }
 
         @Override
@@ -221,27 +181,27 @@ public class TableroManager {
             tm.setPieza(x, Settings.Y - 2, new Peon(true));
             tm.setPieza(x, 1, new Peon(false));
         }
-        
+
         tm.setPieza(0, 0, new Torre(false));
         tm.setPieza(Settings.X - 1, 0, new Torre(false));
         tm.setPieza(0, Settings.Y - 1, new Torre(true));
         tm.setPieza(Settings.X - 1, Settings.Y - 1, new Torre(true));
-        
+
         tm.setPieza(1, 0, new Caballo(false));
         tm.setPieza(Settings.X - 2, 0, new Caballo(false));
         tm.setPieza(1, Settings.Y - 1, new Caballo(true));
         tm.setPieza(Settings.X - 2, Settings.Y - 1, new Caballo(true));
-        
+
         tm.setPieza(2, 0, new Alfil(false));
         tm.setPieza(Settings.X - 3, 0, new Alfil(false));
         tm.setPieza(2, Settings.Y - 1, new Alfil(true));
         tm.setPieza(Settings.X - 3, Settings.Y - 1, new Alfil(true));
-        
+
         tm.setPieza(3, 0, new Reina(false));
         tm.setPieza(Settings.X - 4, 0, new Rey(false));
         tm.setPieza(3, Settings.Y - 1, new Reina(true));
         tm.setPieza(Settings.X - 4, Settings.Y - 1, new Rey(true));
-        
+
         return tm;
     }
 }
