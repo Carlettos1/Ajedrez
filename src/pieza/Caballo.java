@@ -1,6 +1,7 @@
 package pieza;
 
 import java.util.Arrays;
+import jugador.Jugador;
 import pieza.base.Pieza;
 import tablero.Escaque;
 import tablero.TableroManager;
@@ -13,7 +14,7 @@ public class Caballo extends Pieza {
     public Caballo(boolean isBlanca) {
         super("Caballo", isBlanca,
                 Arrays.asList(new EnumTipo[]{EnumTipo.biologico, EnumTipo.transportable}),
-                new Habilidad("Summon peones", "Summonea 2 peones, uno a cada lado del caballo", 10, 0,
+                new Habilidad("Summon peones", "Summonea 2 peones, uno a cada lado del caballo", 10, 1,
                         "Las casillas adyacentes al caballo deben estar vacías"
                         + "\nNo puede usarse en el borde del tablero"
                         + "\nNo requiere información adicional"));
@@ -125,7 +126,10 @@ public class Caballo extends Pieza {
     }
 
     @Override
-    public boolean canUsarHabilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra) {
+    public boolean canUsarHabilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra, Jugador jugador) {
+        if(!super.canUsarHabilidad(tablero, escaqueInicio, informacionExtra, jugador)){
+            return false;
+        }
         int x = escaqueInicio.getLocalizacion().x;
         int y = escaqueInicio.getLocalizacion().y;
 
@@ -142,10 +146,12 @@ public class Caballo extends Pieza {
     }
 
     @Override
-    public void habilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra) {
+    public void habilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra, Jugador jugador) {
         int x = escaqueInicio.getLocalizacion().x;
         int y = escaqueInicio.getLocalizacion().y;
         tablero.getEscaque(x + 1, y).setPieza(new Peon(isBlanca()));
         tablero.getEscaque(x - 1, y).setPieza(new Peon(isBlanca()));
+        
+        super.habilidad(tablero, escaqueInicio, informacionExtra, jugador);
     }
 }

@@ -61,7 +61,6 @@ public class TableroManager {
                 }
             }
             panel.repaint();
-            escaque.getTablero().show();
         }
 
         @Override
@@ -97,12 +96,12 @@ public class TableroManager {
         this.tablero = new Escaque[filas][columnas];
         this.columnas = columnas;
         this.filas = filas;
-        iniciarTableroVacio();
         this.reloj = reloj;
         this.jugadorBlanco = jugadorBlanco;
         this.jugadorNegro = jugadorNegro;
         this.barajaJugadorBlanco = barajaJugadorBlanco;
         this.barajaJugadorNegro = barajaJugadorNegro;
+        iniciarTableroVacio();
     }
 
     private void iniciarTableroVacio() {
@@ -112,6 +111,7 @@ public class TableroManager {
                 tablero[y][x].addMouseListener(listener);
             }
         }
+        reloj.setTablero(this);
     }
 
     public void quitarPieza(int x, int y) {
@@ -149,7 +149,7 @@ public class TableroManager {
     public void show() {
         for (Escaque[] escaques : tablero) {
             for (Escaque escaque : escaques) {
-                System.out.print(escaque.getPieza().getNombre().substring(0, 1) + (escaque.isSelected() ? "-S " : "   "));
+                System.out.print(escaque.getPieza().getNombre().substring(0, 1) + (escaque.getPieza().getCdActual() != 0 ? escaque.getPieza().getCdActual() : " ") + " ");
             }
             System.out.println("");
         }

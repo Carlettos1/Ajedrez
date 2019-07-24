@@ -1,6 +1,7 @@
 package pieza;
 
 import java.util.Arrays;
+import jugador.Jugador;
 import pieza.base.Pieza;
 import tablero.Escaque;
 import tablero.TableroManager;
@@ -78,7 +79,10 @@ public class Alfil extends Pieza {
     }
 
     @Override
-    public boolean canUsarHabilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra) {
+    public boolean canUsarHabilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra, Jugador jugador) {
+        if(!super.canUsarHabilidad(tablero, escaqueInicio, informacionExtra, jugador)){
+            return false;
+        }
         switch (informacionExtra) {
             case "arriba":
                 return tablero.getEscaque(escaqueInicio.getLocalizacion().x, escaqueInicio.getLocalizacion().y - 1).isVacio();
@@ -93,7 +97,7 @@ public class Alfil extends Pieza {
     }
 
     @Override
-    public void habilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra) {
+    public void habilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra, Jugador jugador) {
         switch (informacionExtra) {
             case "arriba":
                 tablero.getEscaque(escaqueInicio.getLocalizacion().x, escaqueInicio.getLocalizacion().y - 1).setPieza(this);
@@ -112,5 +116,7 @@ public class Alfil extends Pieza {
                 escaqueInicio.quitarPieza();
                 break;
         }
+        
+        super.habilidad(tablero, escaqueInicio, informacionExtra, jugador);
     }
 }

@@ -8,6 +8,7 @@ public class RelojHandler {
     private int movimientosHechosTotales = 0;
     private int movimientosHechos = 0;
     private boolean isTurnoBlancas = true;
+    private TableroManager tablero;
     
     /**
      * @param jugadorBlanco jugador de las blancas
@@ -16,6 +17,14 @@ public class RelojHandler {
     public RelojHandler(Jugador jugadorBlanco, Jugador jugadorNegro) {
         this.JugadorBlanco = jugadorBlanco;
         this.jugadorNegro = jugadorNegro;
+    }
+
+    public void setTablero(TableroManager tablero) {
+        this.tablero = tablero;
+    }
+    
+    public Jugador getJugadorTurnoActual(){
+        return isTurnoBlancas() ? JugadorBlanco : jugadorNegro ;
     }
     
     public boolean isTurnoBlancas(){
@@ -28,6 +37,17 @@ public class RelojHandler {
         if (getMovimientosHechos() >= (isTurnoBlancas() ? JugadorBlanco.getMovimientosPorTurno(): jugadorNegro.getMovimientosPorTurno())) {
             movimientosHechos = 0;
             isTurnoBlancas = !isTurnoBlancas;
+            
+            for (Escaque[] escaques : tablero.getTablero()) {
+                for (Escaque escaque : escaques) {
+                    escaque.getPieza().disminurCd();
+                }
+            }
+        }
+        
+        if(getMovimientosHechosTotales() % 10 == 0){
+            JugadorBlanco.addMana(1);
+            jugadorNegro.addMana(1);
         }
     }
 

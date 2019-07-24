@@ -14,7 +14,7 @@ import util.Settings;
 
 public final class TableroVista extends javax.swing.JPanel {
 
-    private final JButton botonUsarHabilidad, botonInfoHabilidad;
+    private final JButton botonUsarHabilidad, botonInfo, botonInfoHabilidad;
     private final JLabel label;
     private final JTextField informacionExtra;
 
@@ -40,10 +40,11 @@ public final class TableroVista extends javax.swing.JPanel {
                 Escaque escaque = tablero.getFirstSelected();
                 String información = informacionExtra.getText().trim().toLowerCase()
                         .replaceAll("á", "a").replaceAll("é", "e").replaceAll("í", "i").replaceAll("ó", "o").replaceAll("ú", "u");
-                if (escaque.getPieza().canUsarHabilidad(tablero, escaque, información)) {
-                    escaque.habilidadPieza(información);
+                if (escaque.getPieza().canUsarHabilidad(tablero, escaque, información, tablero.getReloj().getJugadorTurnoActual())) {
+                    escaque.habilidadPieza(información, tablero.getReloj().getJugadorTurnoActual());
                     escaque.setIsSelected(false);
                     informacionExtra.setText("");
+                    tablero.getReloj().movimientoHecho();
                     repaint();
                 }
             }
@@ -51,9 +52,9 @@ public final class TableroVista extends javax.swing.JPanel {
         botonUsarHabilidad.setVisible(true);
         add(botonUsarHabilidad);
 
-        botonInfoHabilidad = new JButton("Info Habilidad");
-        botonInfoHabilidad.setBounds((tablero.getColumnas()) * Settings.TILE_SIZE + 10, 130, Settings.ANCHO_BOTON, 30);
-        botonInfoHabilidad.addActionListener((ActionEvent e) -> {
+        botonInfo = new JButton("Info Habilidad");
+        botonInfo.setBounds((tablero.getColumnas()) * Settings.TILE_SIZE + 10, 130, Settings.ANCHO_BOTON, 30);
+        botonInfo.addActionListener((ActionEvent e) -> {
             if (tablero.isAnyoneSelected()) {
                 Habilidad habilidad = tablero.getFirstSelected().getPieza().getHabilidad();
                 JOptionPane.showMessageDialog(null, habilidad.getNombre()
@@ -61,6 +62,21 @@ public final class TableroVista extends javax.swing.JPanel {
                         + "\nCoste de Maná = " + habilidad.getCosto()
                         + "\n\n" + habilidad.getDescripcion()
                         + "\n\n" + habilidad.getParametros(),
+                        tablero.getFirstSelected().getPieza().getNombre(), JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+        botonInfo.setVisible(true);
+        add(botonInfo);
+
+        botonInfoHabilidad = new JButton("Estado Actual");
+        botonInfoHabilidad.setBounds((tablero.getColumnas()) * Settings.TILE_SIZE + 10, 180, Settings.ANCHO_BOTON, 30);
+        botonInfoHabilidad.addActionListener((ActionEvent e) -> {
+            if (tablero.isAnyoneSelected()) {
+                Escaque escaque = tablero.getFirstSelected();
+                Habilidad habilidad = escaque.getPieza().getHabilidad();
+                JOptionPane.showMessageDialog(null, habilidad.getNombre()
+                        + "\nTiempo de enfriamiento actual = " + escaque.getPieza().getCdActual()
+                        + "\nManá Actual/Mana Necesario = " + escaque.getDueño().getMana() + "/" + habilidad.getCosto(),
                         tablero.getFirstSelected().getPieza().getNombre(), JOptionPane.INFORMATION_MESSAGE);
             }
         });

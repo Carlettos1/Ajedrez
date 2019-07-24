@@ -3,6 +3,7 @@ package tablero;
 import java.awt.Point;
 import java.util.Objects;
 import javax.swing.JComponent;
+import jugador.Jugador;
 import pieza.Vacia;
 import pieza.base.Pieza;
 
@@ -51,8 +52,8 @@ public final class Escaque extends JComponent{
         return this.getPieza().equals(new Vacia());
     }
     
-    public boolean habilidadPieza(String info){
-        getPieza().habilidad(tablero, this, info);
+    public boolean habilidadPieza(String info, Jugador jugador){
+        getPieza().habilidad(tablero, this, info, jugador);
         return true;
     }
 
@@ -75,6 +76,13 @@ public final class Escaque extends JComponent{
         escaqueFinal.setPieza(getPieza());
         quitarPieza();
         return true;
+    }
+    
+    public Jugador getDueño(){
+        if(isVacio()){
+            return null;
+        }
+        return getPieza().isBlanca() ? tablero.getJugadorBlanco() : tablero.getJugadorNegro();
     }
 
     @Override

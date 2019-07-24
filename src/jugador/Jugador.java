@@ -8,7 +8,7 @@ public class Jugador {
 
     private final boolean isBlanco;
     private final int movimientosPorTurno;
-    private final int mana;
+    private int mana;
     private final List<Carta> cartasEnMano;
 
     public Jugador(boolean isBlanco) {
@@ -36,5 +36,13 @@ public class Jugador {
     
     public void recibirCarta(Carta carta){
         cartasEnMano.add(carta);
+    }
+
+    public void setMana(int mana) {
+        this.mana = mana;
+    }
+    
+    public void addMana(int quantity){
+        mana += quantity;
     }
 }

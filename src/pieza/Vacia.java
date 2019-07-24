@@ -1,6 +1,7 @@
 package pieza;
 
 import java.awt.Graphics;
+import jugador.Jugador;
 import tablero.Escaque;
 import tablero.TableroManager;
 import pieza.base.Pieza;
@@ -22,7 +23,7 @@ public class Vacia extends Pieza{
     }
 
     @Override
-    public boolean canUsarHabilidad(TableroManager a1, Escaque a2, String a3) {
+    public boolean canUsarHabilidad(TableroManager a1, Escaque a2, String a3, Jugador jugador) {
         return false;
     }
 
@@ -31,6 +32,6 @@ public class Vacia extends Pieza{
     }
 
     @Override
-    public void habilidad(TableroManager a1, Escaque a2, String a3) {
+    public void habilidad(TableroManager a1, Escaque a2, String a3, Jugador jugador) {
     }
 }

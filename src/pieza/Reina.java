@@ -1,6 +1,7 @@
 package pieza;
 
 import java.util.Arrays;
+import jugador.Jugador;
 import pieza.base.Pieza;
 import tablero.Escaque;
 import tablero.TableroManager;
@@ -136,7 +137,10 @@ public class Reina extends Pieza {
     }
 
     @Override
-    public boolean canUsarHabilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra) {
+    public boolean canUsarHabilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra, Jugador jugador) {
+        if(!super.canUsarHabilidad(tablero, escaqueInicio, informacionExtra, jugador)){
+            return false;
+        }
         if (!(informacionExtra.equals("1 2")
                 || informacionExtra.equals("2 1")
                 || informacionExtra.equals("-1 2")
@@ -203,7 +207,7 @@ public class Reina extends Pieza {
     }
 
     @Override
-    public void habilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra) {
+    public void habilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra, Jugador jugador) {
         int xInicio = escaqueInicio.getLocalizacion().x;
         int yInicio = escaqueInicio.getLocalizacion().y;
         int x = 0;
@@ -248,5 +252,7 @@ public class Reina extends Pieza {
         Escaque escaqueFinal = tablero.getEscaque(xInicio + x, yInicio + y);
         escaqueFinal.setPieza(this);
         escaqueInicio.quitarPieza();
+        
+        super.habilidad(tablero, escaqueInicio, informacionExtra, jugador);
     }
 }

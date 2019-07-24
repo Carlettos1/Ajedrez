@@ -1,33 +1,50 @@
 package pieza.base;
 
 import java.awt.Graphics;
-import java.util.ArrayList;
 import tablero.TableroManager;
 import tipo.EnumTipo;
 import java.util.List;
 import java.util.Objects;
+import jugador.Jugador;
 import tablero.Escaque;
 import util.Habilidad;
 import util.Settings;
 
 public abstract class Pieza {
+
     protected final boolean isBlanca;
     protected final List<EnumTipo> tipos;
     protected final String nombre;
     protected final Habilidad habilidad;
-    
-    public Pieza(String nombre, boolean isBlanca, List<EnumTipo> tipos, Habilidad habilidad){
+    protected int cdActual = 0;
+
+    public Pieza(String nombre, boolean isBlanca, List<EnumTipo> tipos, Habilidad habilidad) {
         this.isBlanca = isBlanca;
         this.tipos = tipos;
         this.nombre = nombre;
         this.habilidad = habilidad;
     }
-    
+
     public abstract boolean canMover(TableroManager tablero, Escaque escaqueInicio, Escaque escaqueFinal);
+
     public abstract boolean canComer(TableroManager tablero, Escaque escaqueInicio, Escaque escaqueFinal);
-    public abstract boolean canUsarHabilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra);
-    public abstract void habilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra);
-    public void marcar(Graphics g, Escaque escaqueSeleccionado){
+
+    public boolean canUsarHabilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra, Jugador jugador) {
+        if (jugador.getMana() < getHabilidad().getCosto()) {
+            return false;
+        }
+
+        if (cdActual > 0) {
+            return false;
+        }
+        return true;
+    }
+
+    public void habilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra, Jugador jugador) {
+        setCdActual(getHabilidad().getCD());
+    }
+
+    public void marcar(Graphics g, Escaque escaqueSeleccionado) {
         for (int x = 0; x < escaqueSeleccionado.getTablero().getColumnas(); x++) {
             for (int y = 0; y < escaqueSeleccionado.getTablero().getFilas(); y++) {
                 if (canComer(escaqueSeleccionado.getTablero(), escaqueSeleccionado, escaqueSeleccionado.getTablero().getEscaque(x, y))
@@ -37,7 +54,23 @@ public abstract class Pieza {
                     }
                 }
             }
-        }};
+        }
+    }
+
+    public int getCdActual() {
+        return cdActual;
+    }
+
+    public void setCdActual(int cd) {
+        cdActual = cd;
+    }
+    
+    public void disminurCd(){
+        if(cdActual == 0){
+        } else {
+            cdActual--;
+        }
+    }
 
     public boolean isBlanca() {
         return isBlanca;
@@ -57,11 +90,11 @@ public abstract class Pieza {
 
     @Override
     public boolean equals(Object obj) {
-        if(!(obj instanceof Pieza)){
+        if (!(obj instanceof Pieza)) {
             return false;
         }
-        Pieza tmp = (Pieza)obj;
-        if(!tmp.getNombre().equals(this.getNombre())){
+        Pieza tmp = (Pieza) obj;
+        if (!tmp.getNombre().equals(this.getNombre())) {
             return false;
         }
         return tmp.isBlanca() == this.isBlanca();

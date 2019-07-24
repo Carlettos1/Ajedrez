@@ -2,6 +2,7 @@ package pieza;
 
 import java.awt.Graphics;
 import java.util.Arrays;
+import jugador.Jugador;
 import tablero.Escaque;
 import tablero.TableroManager;
 import pieza.base.Pieza;
@@ -74,8 +75,10 @@ public class Peon extends Pieza {
     }
 
     @Override
-    public boolean canUsarHabilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra) {
-
+    public boolean canUsarHabilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra, Jugador jugador) {
+        if(!super.canUsarHabilidad(tablero, escaqueInicio, informacionExtra, jugador)){
+            return false;
+        }
         if (!(informacionExtra.equals("peon")
                 || informacionExtra.equals("alfil")
                 || informacionExtra.equals("torre")
@@ -101,7 +104,6 @@ public class Peon extends Pieza {
         int x = escaqueSeleccionado.getLocalizacion().x;
         int y = escaqueSeleccionado.getLocalizacion().y;
         int direccion = !isBlanca() ? 1 : -1;//TODO
-        System.out.println("direccion = " + direccion);
         if (y + direccion >= 0 && y + direccion < Settings.Y) {
             if (canMover(escaqueSeleccionado.getTablero(), escaqueSeleccionado, escaqueSeleccionado.getTablero().getEscaque(x, y + direccion))) {
                 g.fillOval((int) ((x + 0.3) * Settings.TILE_SIZE), (int) ((y + 0.3 + direccion) * Settings.TILE_SIZE), Settings.CIRCULO, Settings.CIRCULO);
@@ -126,7 +128,7 @@ public class Peon extends Pieza {
     }
 
     @Override
-    public void habilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra) {
+    public void habilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra, Jugador jugador) {
         if (informacionExtra.equals("peon")) {
             escaqueInicio.setPieza(new Peon(escaqueInicio.getPieza().isBlanca()));
         }
@@ -142,5 +144,7 @@ public class Peon extends Pieza {
         if (informacionExtra.equals("reina")) {
             escaqueInicio.setPieza(new Reina(escaqueInicio.getPieza().isBlanca()));
         }
+        
+        super.habilidad(tablero, escaqueInicio, informacionExtra, jugador);
     }
 }

@@ -3,6 +3,7 @@ package pieza;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import jugador.Jugador;
 import pieza.base.Pieza;
 import tablero.Escaque;
 import tablero.TableroManager;
@@ -157,8 +158,10 @@ public class Torre extends Pieza {
 
     @Override
     public boolean canUsarHabilidad(TableroManager tablero, Escaque escaqueInicio,
-            String informacionExtra
-    ) {
+            String informacionExtra, Jugador jugador) {
+        if (!super.canUsarHabilidad(tablero, escaqueInicio, informacionExtra, jugador)) {
+            return false;
+        }
         return (informacionExtra.equals("arriba")
                 || informacionExtra.equals("abajo")
                 || informacionExtra.equals("derecha")
@@ -167,8 +170,7 @@ public class Torre extends Pieza {
 
     @Override
     public void habilidad(TableroManager tablero, Escaque escaqueInicio,
-            String informacionExtra
-    ) {
+            String informacionExtra, Jugador jugador) {
 
         ArrayList<Escaque> escaquesTorres = new ArrayList<>();
 
@@ -198,6 +200,10 @@ public class Torre extends Pieza {
         escaquesTorres.forEach((escaquesTorre) -> {
             System.out.println(escaquesTorre.getLocalizacion().x + " - " + escaquesTorre.getLocalizacion().y + ": " + escaquesTorre.getPieza());
         });
+        
+        for (Escaque torre : escaquesTorres) {
+            torre.getPieza().setCdActual(torre.getPieza().getHabilidad().getCD());
+        }
 
         switch (informacionExtra) {
             case "arriba":
