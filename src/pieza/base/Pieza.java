@@ -50,7 +50,7 @@ public abstract class Pieza {
                 if (canComer(escaqueSeleccionado.getTablero(), escaqueSeleccionado, escaqueSeleccionado.getTablero().getEscaque(x, y))
                         || canMover(escaqueSeleccionado.getTablero(), escaqueSeleccionado, escaqueSeleccionado.getTablero().getEscaque(x, y))) {
                     if (!escaqueSeleccionado.getTablero().getEscaque(x, y).equals(escaqueSeleccionado)) {
-                        g.fillOval((int) ((x + 0.3) * Settings.TILE_SIZE), (int) ((y + 0.3) * Settings.TILE_SIZE), Settings.CIRCULO, Settings.CIRCULO);
+                        g.fillOval((int) ((x + 0.3) * Settings.TILE_SIZE) + Settings.ANCHURA_JUGADOR + 10, (int) ((y + 0.3) * Settings.TILE_SIZE), Settings.CIRCULO, Settings.CIRCULO);
                     }
                 }
             }

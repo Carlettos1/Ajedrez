@@ -1,21 +1,19 @@
 package jugador;
 
-import carta.base.Carta;
-import java.util.ArrayList;
-import java.util.List;
+import carta.base.ManoManager;
 
 public class Jugador {
 
     private final boolean isBlanco;
     private final int movimientosPorTurno;
     private int mana;
-    private final List<Carta> cartasEnMano;
+    private final ManoManager mano;
 
-    public Jugador(boolean isBlanco) {
+    public Jugador(boolean isBlanco, ManoManager mano) {
         this.isBlanco = isBlanco;
         movimientosPorTurno = 1;
         mana = 0;
-        cartasEnMano = new ArrayList<>();
+        this.mano = mano;
     }
 
     public boolean isBlanco() {
@@ -30,12 +28,8 @@ public class Jugador {
         return mana;
     }
 
-    public List<Carta> getCartasEnMano() {
-        return cartasEnMano;
-    }
-    
-    public void recibirCarta(Carta carta){
-        cartasEnMano.add(carta);
+    public ManoManager getMano(){
+        return mano;
     }
 
     public void setMana(int mana) {
@@ -44,5 +38,9 @@ public class Jugador {
     
     public void addMana(int quantity){
         mana += quantity;
+    }
+    
+    public String getColor(){
+        return isBlanco() ? "Blanco": "Negro";
     }
 }

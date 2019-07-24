@@ -25,16 +25,16 @@ public final class TableroVista extends javax.swing.JPanel {
         this.tablero = tablero;
 
         label = new JLabel("Acá va la info adicional:");
-        label.setBounds((tablero.getColumnas()) * Settings.TILE_SIZE + 10, 60, Settings.ANCHO_BOTON, 20);
+        label.setBounds((tablero.getColumnas()) * Settings.TILE_SIZE + 20, 60, Settings.ANCHO_BOTON, 20);
         add(label);
 
         informacionExtra = new JTextField();
-        informacionExtra.setBounds((tablero.getColumnas()) * Settings.TILE_SIZE + 10, 80, Settings.ANCHO_BOTON, 30);
+        informacionExtra.setBounds((tablero.getColumnas()) * Settings.TILE_SIZE + 20 + Settings.ANCHURA_JUGADOR, 80, Settings.ANCHO_BOTON, 30);
         informacionExtra.setVisible(true);
         add(informacionExtra);
 
         botonUsarHabilidad = new JButton("Usar Habilidad");
-        botonUsarHabilidad.setBounds((tablero.getColumnas()) * Settings.TILE_SIZE + 10, 10, Settings.ANCHO_BOTON, 30);
+        botonUsarHabilidad.setBounds((tablero.getColumnas()) * Settings.TILE_SIZE + 20 + Settings.ANCHURA_JUGADOR, 10, Settings.ANCHO_BOTON, 30);
         botonUsarHabilidad.addActionListener((ActionEvent e) -> {
             if (tablero.isAnyoneSelected()) {
                 Escaque escaque = tablero.getFirstSelected();
@@ -45,7 +45,7 @@ public final class TableroVista extends javax.swing.JPanel {
                     escaque.setIsSelected(false);
                     informacionExtra.setText("");
                     tablero.getReloj().movimientoHecho();
-                    repaint();
+                    getParent().getParent().getParent().getParent().repaint();
                 }
             }
         });
@@ -53,7 +53,7 @@ public final class TableroVista extends javax.swing.JPanel {
         add(botonUsarHabilidad);
 
         botonInfo = new JButton("Info Habilidad");
-        botonInfo.setBounds((tablero.getColumnas()) * Settings.TILE_SIZE + 10, 130, Settings.ANCHO_BOTON, 30);
+        botonInfo.setBounds((tablero.getColumnas()) * Settings.TILE_SIZE + 20 + Settings.ANCHURA_JUGADOR, 130, Settings.ANCHO_BOTON, 30);
         botonInfo.addActionListener((ActionEvent e) -> {
             if (tablero.isAnyoneSelected()) {
                 Habilidad habilidad = tablero.getFirstSelected().getPieza().getHabilidad();
@@ -69,7 +69,7 @@ public final class TableroVista extends javax.swing.JPanel {
         add(botonInfo);
 
         botonInfoHabilidad = new JButton("Estado Actual");
-        botonInfoHabilidad.setBounds((tablero.getColumnas()) * Settings.TILE_SIZE + 10, 180, Settings.ANCHO_BOTON, 30);
+        botonInfoHabilidad.setBounds((tablero.getColumnas()) * Settings.TILE_SIZE + 20 + Settings.ANCHURA_JUGADOR, 180, Settings.ANCHO_BOTON, 30);
         botonInfoHabilidad.addActionListener((ActionEvent e) -> {
             if (tablero.isAnyoneSelected()) {
                 Escaque escaque = tablero.getFirstSelected();
@@ -83,6 +83,13 @@ public final class TableroVista extends javax.swing.JPanel {
         botonInfoHabilidad.setVisible(true);
         add(botonInfoHabilidad);
 
+        for (int x = 0; x < tablero.getColumnas(); x++) {
+            for (int y = 0; y < tablero.getFilas(); y++) {
+                tablero.getEscaque(x, y).setBounds(x * Settings.TILE_SIZE + Settings.ANCHURA_JUGADOR + 10, y * Settings.TILE_SIZE, Settings.TILE_SIZE, Settings.TILE_SIZE);
+                tablero.getEscaque(x, y).setVisible(true);
+                add(tablero.getEscaque(x, y));
+            }
+        }
         repaint();
     }
 
@@ -100,16 +107,13 @@ public final class TableroVista extends javax.swing.JPanel {
             for (int y = 0; y < tablero.getFilas(); y++) {
                 //pintar cuadrados
                 g.setColor((x + y) % 2 == 0 ? Color.WHITE : Color.BLACK);
-                g.fillRect(x * Settings.TILE_SIZE, y * Settings.TILE_SIZE, Settings.TILE_SIZE, Settings.TILE_SIZE);
-                tablero.getEscaque(x, y).setBounds(x * Settings.TILE_SIZE, y * Settings.TILE_SIZE, Settings.TILE_SIZE, Settings.TILE_SIZE);
-                tablero.getEscaque(x, y).setVisible(true);
-                add(tablero.getEscaque(x, y));
+                g.fillRect(x * Settings.TILE_SIZE + Settings.ANCHURA_JUGADOR + 10, y * Settings.TILE_SIZE, Settings.TILE_SIZE, Settings.TILE_SIZE);
 
                 g.setColor((x + y) % 2 == 1 ? Color.WHITE : Color.BLACK);
                 if (!tablero.getEscaque(x, y).isVacio()) {
                     //TODO drawImage
-                    g.drawString(tablero.getEscaque(x, y).getPieza().getNombre(), x * Settings.TILE_SIZE + 2, y * Settings.TILE_SIZE + 15);
-                    g.drawString(tablero.getEscaque(x, y).getPieza().isBlanca() ? "Blanco" : "Negro", x * Settings.TILE_SIZE + 2, y * Settings.TILE_SIZE + 25);
+                    g.drawString(tablero.getEscaque(x, y).getPieza().getNombre(), x * Settings.TILE_SIZE + 12 + Settings.ANCHURA_JUGADOR, y * Settings.TILE_SIZE + 15);
+                    g.drawString(tablero.getEscaque(x, y).getPieza().isBlanca() ? "Blanco" : "Negro", x * Settings.TILE_SIZE + 12 + Settings.ANCHURA_JUGADOR, y * Settings.TILE_SIZE + 25);
                 }
             }
         }
@@ -119,7 +123,7 @@ public final class TableroVista extends javax.swing.JPanel {
             g.setColor(Color.LIGHT_GRAY);
             selected.getPieza().marcar(g, selected);
             g.setColor(new Color(0, 0, 255, 50));
-            g.fillRect(selected.getLocalizacion().x * Settings.TILE_SIZE,
+            g.fillRect(selected.getLocalizacion().x * Settings.TILE_SIZE + Settings.ANCHURA_JUGADOR + 10,
                     selected.getLocalizacion().y * Settings.TILE_SIZE,
                     Settings.TILE_SIZE, Settings.TILE_SIZE);
         }

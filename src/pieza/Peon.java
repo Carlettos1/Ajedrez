@@ -106,23 +106,23 @@ public class Peon extends Pieza {
         int direccion = !isBlanca() ? 1 : -1;//TODO
         if (y + direccion >= 0 && y + direccion < Settings.Y) {
             if (canMover(escaqueSeleccionado.getTablero(), escaqueSeleccionado, escaqueSeleccionado.getTablero().getEscaque(x, y + direccion))) {
-                g.fillOval((int) ((x + 0.3) * Settings.TILE_SIZE), (int) ((y + 0.3 + direccion) * Settings.TILE_SIZE), Settings.CIRCULO, Settings.CIRCULO);
+                g.fillOval((int) ((x + 0.3) * Settings.TILE_SIZE) + Settings.ANCHURA_JUGADOR + 10, (int) ((y + 0.3 + direccion) * Settings.TILE_SIZE), Settings.CIRCULO, Settings.CIRCULO);
             }
             if (x + 1 >= 0 && x + 1 < Settings.X) {
                 if (canComer(escaqueSeleccionado.getTablero(), escaqueSeleccionado, escaqueSeleccionado.getTablero().getEscaque(x + 1, y + direccion))) {
-                    g.fillOval((int) ((x + 1.3) * Settings.TILE_SIZE), (int) ((y + 0.3 + direccion) * Settings.TILE_SIZE), Settings.CIRCULO, Settings.CIRCULO);
+                    g.fillOval((int) ((x + 1.3) * Settings.TILE_SIZE) + Settings.ANCHURA_JUGADOR + 10, (int) ((y + 0.3 + direccion) * Settings.TILE_SIZE), Settings.CIRCULO, Settings.CIRCULO);
                 }
             }
             if (x - 1 >= 0 && x - 1 < Settings.X) {
                 if (canComer(escaqueSeleccionado.getTablero(), escaqueSeleccionado, escaqueSeleccionado.getTablero().getEscaque(x - 1, y + direccion))) {
-                    g.fillOval((int) ((x - 0.7) * Settings.TILE_SIZE), (int) ((y + 0.3 + direccion) * Settings.TILE_SIZE), Settings.CIRCULO, Settings.CIRCULO);
+                    g.fillOval((int) ((x - 0.7) * Settings.TILE_SIZE) + Settings.ANCHURA_JUGADOR + 10, (int) ((y + 0.3 + direccion) * Settings.TILE_SIZE), Settings.CIRCULO, Settings.CIRCULO);
                 }
 
             }
         }
         if (y + 2 * direccion >= 0 && y + 2 * direccion < Settings.Y) {
             if (canMover(escaqueSeleccionado.getTablero(), escaqueSeleccionado, escaqueSeleccionado.getTablero().getEscaque(x, y + 2 * direccion))) {
-                g.fillOval((int) ((x + 0.3) * Settings.TILE_SIZE), (int) ((y + 0.3 + 2 * direccion) * Settings.TILE_SIZE), Settings.CIRCULO, Settings.CIRCULO);
+                g.fillOval((int) ((x + 0.3) * Settings.TILE_SIZE) + Settings.ANCHURA_JUGADOR + 10, (int) ((y + 0.3 + 2 * direccion) * Settings.TILE_SIZE), Settings.CIRCULO, Settings.CIRCULO);
             }
         }
     }

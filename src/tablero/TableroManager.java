@@ -1,5 +1,6 @@
 package tablero;
 
+import carta.base.ManoManager;
 import java.awt.Container;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
@@ -200,10 +201,16 @@ public class TableroManager {
     }
 
     public static TableroManager getDefaultState() {
-        TableroManager tm = new TableroManager(Settings.X, Settings.Y, new RelojHandler(new Jugador(true), new Jugador(false)), new Baraja(), new Baraja());
+        TableroManager tm = new TableroManager(Settings.X, Settings.Y,
+                new RelojHandler(new Jugador(true, new ManoManager()), new Jugador(false, new ManoManager())),
+                new Baraja(), new Baraja());
+        tm.getJugadorBlanco().getMano().setTablero(tm);
+        tm.getJugadorNegro().getMano().setTablero(tm);
+        
         if (Settings.X < 8 || Settings.Y < 8) {
             return tm;
         }
+        
         for (int x = 0; x < Settings.X; x++) {
             tm.setPieza(x, Settings.Y - 2, new Peon(true));
             tm.setPieza(x, 1, new Peon(false));

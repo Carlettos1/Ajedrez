@@ -18,7 +18,7 @@ public class Torre extends Pieza {
                 Arrays.asList(new EnumTipo[]{EnumTipo.estructura}),
                 new Habilidad("Muro de berlín", "Lanza todas las torres contiguas en una dirección"
                         + "\nSe detienen si alcanzan el borde del tablero, comen una pieza enemiga"
-                        + "\no colisionan con una pieza aliada", 2, 0,
+                        + "\no colisionan con una pieza aliada", 4, 0,
                         "Se puede usar sin restricciones"
                         + "\nRequiere que se indique la dirección (arriba, abajo, derecha o izquierda)"));
     }
@@ -197,10 +197,6 @@ public class Torre extends Pieza {
         }
         escaquesTorres = ordenarTorres(informacionExtra, escaquesTorres, tablero);
 
-        escaquesTorres.forEach((escaquesTorre) -> {
-            System.out.println(escaquesTorre.getLocalizacion().x + " - " + escaquesTorre.getLocalizacion().y + ": " + escaquesTorre.getPieza());
-        });
-        
         for (Escaque torre : escaquesTorres) {
             torre.getPieza().setCdActual(torre.getPieza().getHabilidad().getCD());
         }
