@@ -1,7 +1,7 @@
 package util;
 public final class Settings {
-    public static final int X = 5;
-    public static final int Y = 5;
+    public static final int X = 7;
+    public static final int Y = 7;
     public static final int TILE_SIZE = 50;
     public static final String TITULO = "Chess";
     public static final int ANCHO_BOTON = 150;

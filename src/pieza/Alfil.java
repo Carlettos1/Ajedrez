@@ -1,13 +1,11 @@
 package pieza;
 
-import java.awt.Graphics;
 import java.util.Arrays;
 import pieza.base.Pieza;
 import tablero.Escaque;
 import tablero.TableroManager;
 import tipo.EnumTipo;
 import util.Habilidad;
-import util.Settings;
 
 public class Alfil extends Pieza {
 
@@ -20,13 +18,13 @@ public class Alfil extends Pieza {
         if (!escaqueFinal.isVacio()) {
             return false;
         }
-        int xi = escaqueInicio.getLocalizacion().x;
-        int xf = escaqueFinal.getLocalizacion().x;
-        int yi = escaqueInicio.getLocalizacion().y;
-        int yf = escaqueFinal.getLocalizacion().y;
+        int xInicio = escaqueInicio.getLocalizacion().x;
+        int xFinal = escaqueFinal.getLocalizacion().x;
+        int yInicio = escaqueInicio.getLocalizacion().y;
+        int yFinal = escaqueFinal.getLocalizacion().y;
 
-        int deltaX = xf - xi;
-        int deltaY = yf - yi;
+        int deltaX = xFinal - xInicio;
+        int deltaY = yFinal - yInicio;
 
         if (Math.abs(deltaX) != Math.abs(deltaY)) {
             return false;
@@ -36,7 +34,7 @@ public class Alfil extends Pieza {
         int signoY = deltaY > 0 ? 1 : -1;
 
         for (int casilla = 1; casilla <= Math.abs(deltaX); casilla++) {
-            if (!tablero.getEscaque(xi + casilla * signoX, yi + casilla * signoY).isVacio()) {
+            if (!tablero.getEscaque(xInicio + casilla * signoX, yInicio + casilla * signoY).isVacio()) {
                 return false;
             }
         }
@@ -108,20 +106,6 @@ public class Alfil extends Pieza {
                 tablero.getEscaque(escaqueInicio.getLocalizacion().x - 1, escaqueInicio.getLocalizacion().y).setPieza(this);
                 escaqueInicio.quitarPieza();
                 break;
-        }
-    }
-
-    @Override
-    public void marcar(Graphics g, Escaque escaqueSeleccionado) {
-        for (int x = 0; x < escaqueSeleccionado.getTablero().getColumnas(); x++) {
-            for (int y = 0; y < escaqueSeleccionado.getTablero().getFilas(); y++) {
-                if (canComer(escaqueSeleccionado.getTablero(), escaqueSeleccionado, escaqueSeleccionado.getTablero().getEscaque(x, y)) ||
-                        canMover(escaqueSeleccionado.getTablero(), escaqueSeleccionado, escaqueSeleccionado.getTablero().getEscaque(x, y))) {
-                    if (!escaqueSeleccionado.getTablero().getEscaque(x, y).equals(escaqueSeleccionado)) {
-                        g.fillOval((int) ((x + 0.3) * Settings.TILE_SIZE), (int) ((y + 0.3) * Settings.TILE_SIZE), Settings.CIRCULO, Settings.CIRCULO);
-                    }
-                }
-            }
         }
     }
 }

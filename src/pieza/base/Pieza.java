@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Objects;
 import tablero.Escaque;
 import util.Habilidad;
+import util.Settings;
 
 public abstract class Pieza {
     protected final boolean isBlanca;
@@ -26,7 +27,17 @@ public abstract class Pieza {
     public abstract boolean canComer(TableroManager tablero, Escaque escaqueInicio, Escaque escaqueFinal);
     public abstract boolean canUsarHabilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra);
     public abstract void habilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra);
-    public abstract void marcar(Graphics g, Escaque escaqueSeleccionado);
+    public void marcar(Graphics g, Escaque escaqueSeleccionado){
+        for (int x = 0; x < escaqueSeleccionado.getTablero().getColumnas(); x++) {
+            for (int y = 0; y < escaqueSeleccionado.getTablero().getFilas(); y++) {
+                if (canComer(escaqueSeleccionado.getTablero(), escaqueSeleccionado, escaqueSeleccionado.getTablero().getEscaque(x, y))
+                        || canMover(escaqueSeleccionado.getTablero(), escaqueSeleccionado, escaqueSeleccionado.getTablero().getEscaque(x, y))) {
+                    if (!escaqueSeleccionado.getTablero().getEscaque(x, y).equals(escaqueSeleccionado)) {
+                        g.fillOval((int) ((x + 0.3) * Settings.TILE_SIZE), (int) ((y + 0.3) * Settings.TILE_SIZE), Settings.CIRCULO, Settings.CIRCULO);
+                    }
+                }
+            }
+        }};
 
     public boolean isBlanca() {
         return isBlanca;

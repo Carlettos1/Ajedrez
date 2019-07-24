@@ -40,6 +40,7 @@ public final class TableroVista extends javax.swing.JPanel {
                 if (escaque.getPieza().canUsarHabilidad(tablero, escaque, informacionExtra.getText())) {
                     escaque.habilidadPieza(informacionExtra.getText());
                     escaque.setIsSelected(false);
+                    informacionExtra.setText("");
                     repaint();
                 }
             }

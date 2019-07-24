@@ -71,7 +71,7 @@ public class Peon extends Pieza {
     @Override
     public boolean canUsarHabilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra) {
         
-        if(!(informacionExtra.equals("peon") || informacionExtra.equals("alfil"))){
+        if(!(informacionExtra.equals("peon") || informacionExtra.equals("alfil") || informacionExtra.equals("torre"))){
             return false;
         }
         
@@ -123,6 +123,9 @@ public class Peon extends Pieza {
         }
         if(informacionExtra.equals("alfil")){
             escaqueInicio.setPieza(new Alfil(escaqueInicio.getPieza().isBlanca()));
+        } 
+        if(informacionExtra.equals("torre")){
+            escaqueInicio.setPieza(new Torre(escaqueInicio.getPieza().isBlanca()));
         }
     }
 }

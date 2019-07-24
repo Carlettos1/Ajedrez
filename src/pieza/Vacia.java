@@ -12,25 +12,25 @@ public class Vacia extends Pieza{
     }
 
     @Override
-    public boolean canMover(TableroManager t, Escaque b, Escaque a) {
+    public boolean canMover(TableroManager a1, Escaque a2, Escaque a3) {
         return false;
     }
 
     @Override
-    public boolean canComer(TableroManager tablero, Escaque b, Escaque a) {
+    public boolean canComer(TableroManager a1, Escaque a2, Escaque a3) {
         return false;
     }
 
     @Override
-    public boolean canUsarHabilidad(TableroManager tablero, Escaque b, String informacionExtra) {
+    public boolean canUsarHabilidad(TableroManager a1, Escaque a2, String a3) {
         return false;
     }
 
     @Override
-    public void marcar(Graphics g, Escaque escaqueSeleccionado) {
+    public void marcar(Graphics a1, Escaque a2) {
     }
 
     @Override
-    public void habilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra) {
+    public void habilidad(TableroManager a1, Escaque a2, String a3) {
     }
 }
