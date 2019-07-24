@@ -10,7 +10,12 @@ import util.Habilidad;
 public class Alfil extends Pieza {
 
     public Alfil(boolean isBlanca) {
-        super("alfil", isBlanca, Arrays.asList(new EnumTipo[]{EnumTipo.biologico, EnumTipo.transportable}), new Habilidad("Cambio de color", "Cambia de color lol", 5, 0));
+        super("Alfil", isBlanca,
+                Arrays.asList(new EnumTipo[]{EnumTipo.biologico, EnumTipo.transportable}),
+                new Habilidad("Cambio de color", "Se mueve una casilla hacia algún lado para cambiar"
+                        + "\nel color de casillas en las que puede moverse", 5, 0,
+                        "Requiere que la casilla esté vacía"
+                        + "\nAdemás necesita que se le indique hacia donde mover (arriba, abajo, derecha o izquierda)"));
     }
 
     @Override
@@ -49,13 +54,13 @@ public class Alfil extends Pieza {
         if (escaqueFinal.isVacio()) {
             return false;
         }
-        int xi = escaqueInicio.getLocalizacion().x;
-        int xf = escaqueFinal.getLocalizacion().x;
-        int yi = escaqueInicio.getLocalizacion().y;
-        int yf = escaqueFinal.getLocalizacion().y;
+        int xInicio = escaqueInicio.getLocalizacion().x;
+        int xFinal = escaqueFinal.getLocalizacion().x;
+        int yInicio = escaqueInicio.getLocalizacion().y;
+        int yFinal = escaqueFinal.getLocalizacion().y;
 
-        int deltaX = xf - xi;
-        int deltaY = yf - yi;
+        int deltaX = xFinal - xInicio;
+        int deltaY = yFinal - yInicio;
 
         if (Math.abs(deltaX) != Math.abs(deltaY)) {
             return false;
@@ -65,7 +70,7 @@ public class Alfil extends Pieza {
         int signoY = deltaY > 0 ? 1 : -1;
 
         for (int casilla = 1; casilla < Math.abs(deltaX); casilla++) {
-            if (!tablero.getEscaque(xi + casilla * signoX, yi + casilla * signoY).isVacio()) {
+            if (!tablero.getEscaque(xInicio + casilla * signoX, yInicio + casilla * signoY).isVacio()) {
                 return false;
             }
         }

@@ -1,8 +1,6 @@
 package pieza;
 
-import java.awt.Graphics;
 import java.util.Arrays;
-import java.util.List;
 import pieza.base.Pieza;
 import tablero.Escaque;
 import tablero.TableroManager;
@@ -13,7 +11,12 @@ import util.Settings;
 public class Caballo extends Pieza {
 
     public Caballo(boolean isBlanca) {
-        super("caballo", isBlanca, Arrays.asList(new EnumTipo[]{EnumTipo.biologico, EnumTipo.transportable}), new Habilidad("Summon peones", "Summonea 2 peones, uno a cada lado del caballo", 10, 0));
+        super("Caballo", isBlanca,
+                Arrays.asList(new EnumTipo[]{EnumTipo.biologico, EnumTipo.transportable}),
+                new Habilidad("Summon peones", "Summonea 2 peones, uno a cada lado del caballo", 10, 0,
+                        "Las casillas adyacentes al caballo deben estar vacías"
+                        + "\nNo puede usarse en el borde del tablero"
+                        + "\nNo requiere información adicional"));
     }
 
     @Override
@@ -125,14 +128,14 @@ public class Caballo extends Pieza {
     public boolean canUsarHabilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra) {
         int x = escaqueInicio.getLocalizacion().x;
         int y = escaqueInicio.getLocalizacion().y;
-        
-        if(x + 1 >= Settings.X || x - 1 < 0){
+
+        if (x + 1 >= Settings.X || x - 1 < 0) {
             return false;
         }
-        if(!tablero.getEscaque(x + 1, y).isVacio()){
+        if (!tablero.getEscaque(x + 1, y).isVacio()) {
             return false;
         }
-        if(!tablero.getEscaque(x - 1, y).isVacio()){
+        if (!tablero.getEscaque(x - 1, y).isVacio()) {
             return false;
         }
         return true;

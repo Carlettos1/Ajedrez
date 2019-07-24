@@ -8,7 +8,7 @@ import pieza.base.Pieza;
 public class Vacia extends Pieza{
 
     public Vacia() {
-        super("vacia", false, null, null);
+        super("Vacia", false, null, null);
     }
 
     @Override

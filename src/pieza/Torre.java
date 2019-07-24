@@ -13,7 +13,13 @@ import util.Settings;
 public class Torre extends Pieza {
 
     public Torre(boolean isBlanca) {
-        super("torre", isBlanca, Arrays.asList(new EnumTipo[]{EnumTipo.estructura}), new Habilidad("Muro de berlín", "mueve todas las torres adyacentes en una dirección", 2, 0));
+        super("Torre", isBlanca,
+                Arrays.asList(new EnumTipo[]{EnumTipo.estructura}),
+                new Habilidad("Muro de berlín", "Lanza todas las torres contiguas en una dirección"
+                        + "\nSe detienen si alcanzan el borde del tablero, comen una pieza enemiga"
+                        + "\no colisionan con una pieza aliada", 2, 0,
+                        "Se puede usar sin restricciones"
+                        + "\nRequiere que se indique la dirección (arriba, abajo, derecha o izquierda)"));
     }
 
     @Override
@@ -113,7 +119,7 @@ public class Torre extends Pieza {
             case "arriba":
                 for (int y = 0; y < Settings.Y; y++) {
                     for (int x = 0; x < Settings.X; x++) {
-                        if(torres.contains(tablero.getEscaque(x, y))){
+                        if (torres.contains(tablero.getEscaque(x, y))) {
                             lista.add(tablero.getEscaque(x, y));
                         }
                     }
@@ -122,7 +128,7 @@ public class Torre extends Pieza {
             case "abajo":
                 for (int y = Settings.Y - 1; y >= 0; y--) {
                     for (int x = 0; x < Settings.X; x++) {
-                        if(torres.contains(tablero.getEscaque(x, y))){
+                        if (torres.contains(tablero.getEscaque(x, y))) {
                             lista.add(tablero.getEscaque(x, y));
                         }
                     }
@@ -131,7 +137,7 @@ public class Torre extends Pieza {
             case "derecha":
                 for (int x = Settings.X - 1; x >= 0; x--) {
                     for (int y = 0; y < Settings.Y; y++) {
-                        if(torres.contains(tablero.getEscaque(x, y))){
+                        if (torres.contains(tablero.getEscaque(x, y))) {
                             lista.add(tablero.getEscaque(x, y));
                         }
                     }
@@ -140,7 +146,7 @@ public class Torre extends Pieza {
             case "izquierda":
                 for (int x = 0; x < Settings.X; x++) {
                     for (int y = 0; y < Settings.Y; y++) {
-                        if(torres.contains(tablero.getEscaque(x, y))){
+                        if (torres.contains(tablero.getEscaque(x, y))) {
                             lista.add(tablero.getEscaque(x, y));
                         }
                     }

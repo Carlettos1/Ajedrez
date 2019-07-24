@@ -1,19 +1,20 @@
 package vista;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import tablero.Escaque;
 import tablero.TableroManager;
+import util.Habilidad;
 import util.Settings;
 
 public final class TableroVista extends javax.swing.JPanel {
 
-    private final JButton boton;
+    private final JButton botonUsarHabilidad, botonInfoHabilidad;
     private final JLabel label;
     private final JTextField informacionExtra;
 
@@ -32,21 +33,39 @@ public final class TableroVista extends javax.swing.JPanel {
         informacionExtra.setVisible(true);
         add(informacionExtra);
 
-        boton = new JButton("Usar Habilidad");
-        boton.setBounds((tablero.getColumnas()) * Settings.TILE_SIZE + 10, 10, Settings.ANCHO_BOTON, 30);
-        boton.addActionListener((ActionEvent e) -> {
+        botonUsarHabilidad = new JButton("Usar Habilidad");
+        botonUsarHabilidad.setBounds((tablero.getColumnas()) * Settings.TILE_SIZE + 10, 10, Settings.ANCHO_BOTON, 30);
+        botonUsarHabilidad.addActionListener((ActionEvent e) -> {
             if (tablero.isAnyoneSelected()) {
                 Escaque escaque = tablero.getFirstSelected();
-                if (escaque.getPieza().canUsarHabilidad(tablero, escaque, informacionExtra.getText())) {
-                    escaque.habilidadPieza(informacionExtra.getText());
+                String información = informacionExtra.getText().trim().toLowerCase()
+                        .replaceAll("á", "a").replaceAll("é", "e").replaceAll("í", "i").replaceAll("ó", "o").replaceAll("ú", "u");
+                if (escaque.getPieza().canUsarHabilidad(tablero, escaque, información)) {
+                    escaque.habilidadPieza(información);
                     escaque.setIsSelected(false);
                     informacionExtra.setText("");
                     repaint();
                 }
             }
         });
-        boton.setVisible(true);
-        add(boton);
+        botonUsarHabilidad.setVisible(true);
+        add(botonUsarHabilidad);
+
+        botonInfoHabilidad = new JButton("Info Habilidad");
+        botonInfoHabilidad.setBounds((tablero.getColumnas()) * Settings.TILE_SIZE + 10, 130, Settings.ANCHO_BOTON, 30);
+        botonInfoHabilidad.addActionListener((ActionEvent e) -> {
+            if (tablero.isAnyoneSelected()) {
+                Habilidad habilidad = tablero.getFirstSelected().getPieza().getHabilidad();
+                JOptionPane.showMessageDialog(null, habilidad.getNombre()
+                        + "\nTiempo de enfriamiento = " + habilidad.getCD()
+                        + "\nCoste de Maná = " + habilidad.getCosto()
+                        + "\n\n" + habilidad.getDescripcion()
+                        + "\n\n" + habilidad.getParametros(),
+                        tablero.getFirstSelected().getPieza().getNombre(), JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+        botonInfoHabilidad.setVisible(true);
+        add(botonInfoHabilidad);
 
         repaint();
     }

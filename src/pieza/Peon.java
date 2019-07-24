@@ -12,7 +12,11 @@ import util.Settings;
 public class Peon extends Pieza {
 
     public Peon(boolean isBlanca) {
-        super("peon", isBlanca, Arrays.asList(new EnumTipo[]{EnumTipo.biologico, EnumTipo.transportable}), new Habilidad("Coronar", "Corona al peón", 0, 1));
+        super("Peón", isBlanca,
+                Arrays.asList(new EnumTipo[]{EnumTipo.biologico, EnumTipo.transportable}),
+                new Habilidad("Coronar", "Corona al peón", 0, 1,
+                        "El peón debe situarse en el extremo contrario del tablero"
+                        + "\nRequiere que se indique la pieza en la que se va a transformar"));
     }
 
     @Override
@@ -75,7 +79,8 @@ public class Peon extends Pieza {
         if (!(informacionExtra.equals("peon")
                 || informacionExtra.equals("alfil")
                 || informacionExtra.equals("torre")
-                || informacionExtra.equals("caballo"))) {
+                || informacionExtra.equals("caballo")
+                || informacionExtra.equals("reina"))) {
             return false;
         }
 
@@ -133,6 +138,9 @@ public class Peon extends Pieza {
         }
         if (informacionExtra.equals("caballo")) {
             escaqueInicio.setPieza(new Caballo(escaqueInicio.getPieza().isBlanca()));
+        }
+        if (informacionExtra.equals("reina")) {
+            escaqueInicio.setPieza(new Reina(escaqueInicio.getPieza().isBlanca()));
         }
     }
 }

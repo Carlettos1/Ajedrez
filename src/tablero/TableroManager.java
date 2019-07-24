@@ -154,7 +154,7 @@ public class TableroManager {
     public void show() {
         for (Escaque[] escaques : tablero) {
             for (Escaque escaque : escaques) {
-                System.out.print(escaque.getPieza().getNombre().substring(0, 1) + "-" + (escaque.isSelected() ? "S" : "D") + " ");
+                System.out.print(escaque.getPieza().getNombre().substring(0, 1) +(escaque.isSelected() ? "-S " : "   "));
             }
             System.out.println("");
         }
