@@ -3,7 +3,9 @@ package main;
 import carta.mejoras.UnTurnoC;
 import carta.summon.TorreC;
 import javax.swing.JFrame;
+import pieza.Ariete;
 import tablero.TableroManager;
+import util.Settings;
 import vista.Setup;
 import vista.TableroVista;
 
@@ -11,6 +13,7 @@ public class Main {
 
     public static void main(String[] args) {
         TableroManager tablero = TableroManager.getDefaultState();
+        tablero.setPieza(8, Settings.Y -3, new Ariete(true));
         TableroVista vista = new TableroVista(tablero);
         vista.setVisible(true);
         JFrame frame = Setup.iniciar(tablero);

@@ -76,7 +76,7 @@ public final class TableroVista extends javax.swing.JPanel {
                 Habilidad habilidad = escaque.getPieza().getHabilidad();
                 JOptionPane.showMessageDialog(null, habilidad.getNombre()
                         + "\nTiempo de enfriamiento actual = " + escaque.getPieza().getCdActual()
-                        + "\nManá Actual/Mana Necesario = " + escaque.getDueño().getMana() + "/" + habilidad.getCosto()
+                        + "\nManá Actual / Mana Necesario = " + escaque.getDueño().getMana() + " / " + habilidad.getCosto()
                         + "\nSe ha movido este turno? " + (escaque.getPieza().seHaMovidoEsteTurno() ? "Si" : "No"),
                         tablero.getFirstSelected().getPieza().getNombre(), JOptionPane.INFORMATION_MESSAGE);
             }
