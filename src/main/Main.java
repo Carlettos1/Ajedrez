@@ -13,7 +13,8 @@ public class Main {
 
     public static void main(String[] args) {
         TableroManager tablero = TableroManager.getDefaultState();
-        tablero.setPieza(8, Settings.Y -3, new Ariete(true));
+        tablero.setPieza(8, Settings.Y - 3, new Ariete(true));
+        tablero.setPieza(8, 3, new Ariete(false));
         TableroVista vista = new TableroVista(tablero);
         vista.setVisible(true);
         JFrame frame = Setup.iniciar(tablero);

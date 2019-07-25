@@ -75,7 +75,8 @@ public class Ariete extends Pieza {
                 for (int y = escaqueInicio.getLocalizacion().y - 1; y >= 0; y--) {
                     if (tablero.getEscaque(escaqueInicio.getLocalizacion().x, y).isVacio()) {
                         casillasPasadas++;
-                    } else {
+                    }
+                    if (y - 1 == 0 || !tablero.getEscaque(escaqueInicio.getLocalizacion().x, y).isVacio()) {
                         for (int y2 = 0; y2 <= casillasPasadas / 5; y2++) {
                             tablero.quitarPieza(escaqueInicio.getLocalizacion().x, y - y2);
                             if (y - y2 == 0 || y2 == casillasPasadas / 5) {
@@ -89,13 +90,14 @@ public class Ariete extends Pieza {
                 }
                 break;
             case "abajo":
-                for (int y = 0; y < Settings.Y; y++) {
+                for (int y = escaqueInicio.getLocalizacion().y + 1; y < Settings.Y; y++) {
                     if (tablero.getEscaque(escaqueInicio.getLocalizacion().x, y).isVacio()) {
                         casillasPasadas++;
-                    } else {
+                    }
+                    if (y + 1 == Settings.Y || !tablero.getEscaque(escaqueInicio.getLocalizacion().x, y).isVacio()) {
                         for (int y2 = 0; y2 <= casillasPasadas / 5; y2++) {
                             tablero.quitarPieza(escaqueInicio.getLocalizacion().x, y + y2);
-                            if (y + y2 == 0 || y2 == casillasPasadas / 5) {
+                            if (y + y2 == Settings.Y - 1 || y2 == casillasPasadas / 5) {
                                 tablero.setPieza(escaqueInicio.getLocalizacion().x, y + y2, this);
                                 escaqueInicio.quitarPieza();
                                 break;
@@ -106,14 +108,15 @@ public class Ariete extends Pieza {
                 }
                 break;
             case "derecha":
-                for (int x = 0; x < Settings.X; x++) {
-                    if (tablero.getEscaque(escaqueInicio.getLocalizacion().y, x).isVacio()) {
+                for (int x = escaqueInicio.getLocalizacion().x + 1; x < Settings.X; x++) {
+                    if (tablero.getEscaque(x, escaqueInicio.getLocalizacion().y).isVacio()) {
                         casillasPasadas++;
-                    } else {
+                    }
+                    if (x + 1 == Settings.X || !tablero.getEscaque(x, escaqueInicio.getLocalizacion().y).isVacio()) {
                         for (int x2 = 0; x2 <= casillasPasadas / 5; x2++) {
-                            tablero.quitarPieza(escaqueInicio.getLocalizacion().y, x + x2);
-                            if (x + x2 == 0 || x2 == casillasPasadas / 5) {
-                                tablero.setPieza(escaqueInicio.getLocalizacion().y, x + x2, this);
+                            tablero.quitarPieza(x + x2, escaqueInicio.getLocalizacion().y);
+                            if (x + x2 == Settings.X - 1 || x2 == casillasPasadas / 5) {
+                                tablero.setPieza(x + x2, escaqueInicio.getLocalizacion().y, this);
                                 escaqueInicio.quitarPieza();
                                 break;
                             }
@@ -124,18 +127,19 @@ public class Ariete extends Pieza {
                 break;
             case "izquierda":
                 for (int x = escaqueInicio.getLocalizacion().x - 1; x >= 0; x--) {
-                    if (tablero.getEscaque(escaqueInicio.getLocalizacion().y, x).isVacio()) {
+                    if (tablero.getEscaque(x, escaqueInicio.getLocalizacion().y).isVacio()) {
                         casillasPasadas++;
-                    } else {
+                    }
+                    if (x == 0 || !tablero.getEscaque(x, escaqueInicio.getLocalizacion().y).isVacio()) {
                         for (int x2 = 0; x2 <= casillasPasadas / 5; x2++) {
-                            tablero.quitarPieza(escaqueInicio.getLocalizacion().y, x - x2);
+                            tablero.quitarPieza(x - x2, escaqueInicio.getLocalizacion().y);
                             if (x - x2 == 0 || x2 == casillasPasadas / 5) {
-                                tablero.setPieza(escaqueInicio.getLocalizacion().y, x - x2, this);
+                                tablero.setPieza(x - x2, escaqueInicio.getLocalizacion().y, this);
                                 escaqueInicio.quitarPieza();
                                 break;
                             }
+                            break;
                         }
-                        break;
                     }
                 }
                 break;
