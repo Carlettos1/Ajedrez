@@ -22,8 +22,9 @@ public class TorreC extends Carta {
 
     @Override
     public void usarCarta(Escaque escaqueObjetivo) {
-        escaqueObjetivo.setPieza(new Torre(isBlanca()));
-        escaqueObjetivo.getPieza().setSeHaMovidoEsteTurno(true);
+        Torre torre = new Torre(isBlanca());
+        torre.setSeHaMovidoEsteTurno(true);
+        escaqueObjetivo.setPieza(torre);
         if (isBlanca()) {
             escaqueObjetivo.getTablero().getJugadorBlanco().getMano().quitarCarta(this);
         } else {

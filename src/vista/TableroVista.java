@@ -15,7 +15,7 @@ import util.Settings;
 public final class TableroVista extends javax.swing.JPanel {
 
     private final JButton botonUsarHabilidad, botonInfo, botonInfoHabilidad;
-    private final JLabel label;
+    private final JLabel label, movimientos, turno;
     private final JTextField informacionExtra;
 
     private final TableroManager tablero;
@@ -25,7 +25,7 @@ public final class TableroVista extends javax.swing.JPanel {
         this.tablero = tablero;
 
         label = new JLabel("Acá va la info adicional:");
-        label.setBounds((tablero.getColumnas()) * Settings.TILE_SIZE + 20, 60, Settings.ANCHO_BOTON, 20);
+        label.setBounds((tablero.getColumnas()) * Settings.TILE_SIZE + 20+ Settings.ANCHURA_JUGADOR, 60, Settings.ANCHO_BOTON, 20);
         add(label);
 
         informacionExtra = new JTextField();
@@ -84,6 +84,14 @@ public final class TableroVista extends javax.swing.JPanel {
         botonInfoHabilidad.setVisible(true);
         add(botonInfoHabilidad);
 
+        movimientos = new JLabel("0 movimientos de " + tablero.getJugadorBlanco().getMovimientosPorTurno());
+        movimientos.setBounds((tablero.getColumnas()) * Settings.TILE_SIZE + 20+ Settings.ANCHURA_JUGADOR, 230, Settings.ANCHO_BOTON, 20);
+        add(movimientos);
+        
+        turno = new JLabel("turno de los " + tablero.getJugadorBlanco().getColor());
+        turno.setBounds((tablero.getColumnas()) * Settings.TILE_SIZE + 20+ Settings.ANCHURA_JUGADOR, 270, Settings.ANCHO_BOTON, 20);
+        add(turno);
+
         for (int x = 0; x < tablero.getColumnas(); x++) {
             for (int y = 0; y < tablero.getFilas(); y++) {
                 tablero.getEscaque(x, y).setBounds(x * Settings.TILE_SIZE + Settings.ANCHURA_JUGADOR + 10, y * Settings.TILE_SIZE, Settings.TILE_SIZE, Settings.TILE_SIZE);
@@ -92,6 +100,14 @@ public final class TableroVista extends javax.swing.JPanel {
             }
         }
         repaint();
+    }
+
+    public JLabel getMovimientos() {
+        return movimientos;
+    }
+
+    public JLabel getTurno() {
+        return turno;
     }
 
     @SuppressWarnings("unchecked")

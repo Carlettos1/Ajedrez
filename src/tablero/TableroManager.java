@@ -32,7 +32,7 @@ public class TableroManager {
             if (escaque.isVacio() && !escaque.getTablero().isAnyoneSelected()) {
                 return;
             }
-            
+
             Container panel = escaque.getParent().getParent().getParent().getParent().getParent();
 
             if (escaque.getTablero().isAnyoneSelected()) {
@@ -46,8 +46,13 @@ public class TableroManager {
                         }
                         anteriorSelected.setIsSelected(false);
                     } else if (escaque.getPieza().isBlanca() == anteriorSelected.getPieza().isBlanca()) {
-                        anteriorSelected.setIsSelected(false);
-                        escaque.setIsSelected(true);
+                        if (escaque.getTablero().getReloj().isTurnoBlancas() == escaque.getPieza().isBlanca()) {
+                            anteriorSelected.setIsSelected(false);
+                            escaque.setIsSelected(true);
+                        } else {
+                            anteriorSelected.setIsSelected(false);
+                            escaque.setIsSelected(false);
+                        }
                     } else {
                         if (anteriorSelected.comerPieza(escaque)) {
                             escaque.getTablero().getReloj().movimientoHecho();
@@ -207,11 +212,11 @@ public class TableroManager {
                 new Baraja(), new Baraja());
         tm.getJugadorBlanco().getMano().setTablero(tm);
         tm.getJugadorNegro().getMano().setTablero(tm);
-        
+
         if (Settings.X < 8 || Settings.Y < 8) {
             return tm;
         }
-        
+
         for (int x = 0; x < Settings.X; x++) {
             tm.setPieza(x, Settings.Y - 2, new Peon(true));
             tm.setPieza(x, 1, new Peon(false));
