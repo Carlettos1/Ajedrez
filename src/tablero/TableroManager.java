@@ -11,7 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 import jugador.Jugador;
 import piezas.Alfil;
+import piezas.Ariete;
+import piezas.Brujo;
 import piezas.Caballo;
+import piezas.Catapulta;
+import piezas.Defensor;
+import piezas.Hechicero;
 import piezas.Peon;
 import piezas.Reina;
 import piezas.Rey;
@@ -234,37 +239,126 @@ public class TableroManager {
         if (Settings.X != 16 || Settings.Y != 17) {
             return tm;
         }
-
-        for (int x = 0; x < Settings.X; x++) {
-            tm.setPieza(x, Settings.Y - 2, new Peon(true));
-            tm.setPieza(x, 1, new Peon(false));
-        }
-
-        tm.setPieza(0, 0, new Torre(false));
-        tm.setPieza(Settings.X - 1, 0, new Torre(false));
-        tm.setPieza(0, Settings.Y - 1, new Torre(true));
-        tm.setPieza(Settings.X - 1, Settings.Y - 1, new Torre(true));
-
-        tm.setPieza(1, 0, new Caballo(false));
-        tm.setPieza(Settings.X - 2, 0, new Caballo(false));
-        tm.setPieza(1, Settings.Y - 1, new Caballo(true));
-        tm.setPieza(Settings.X - 2, Settings.Y - 1, new Caballo(true));
-
-        tm.setPieza(2, 0, new Alfil(false));
-        tm.setPieza(Settings.X - 3, 0, new Alfil(false));
-        tm.setPieza(2, Settings.Y - 1, new Alfil(true));
-        tm.setPieza(Settings.X - 3, Settings.Y - 1, new Alfil(true));
-
-        tm.setPieza(3, 0, new Reina(false));
-        tm.setPieza(Settings.X - 4, 0, new Rey(false));
-        tm.setPieza(3, Settings.Y - 1, new Reina(true));
-        tm.setPieza(Settings.X - 4, Settings.Y - 1, new Rey(true));
-
+        
         tm.getEscaque(0, 7).setIsFuenteDeMagia(true);
         tm.getEscaque(0, 9).setIsFuenteDeMagia(true);
-        tm.getEscaque(Settings.X - 1, 7).setIsFuenteDeMagia(true);
-        tm.getEscaque(Settings.X - 1, 9).setIsFuenteDeMagia(true);
+        tm.getEscaque(15, 7).setIsFuenteDeMagia(true);
+        tm.getEscaque(15, 9).setIsFuenteDeMagia(true);
         
+        //tm.setPieza(0, 0, new Cañon(false));
+        //tm.setPieza(15, 0, new Cañon(false));
+        //tm.setPieza(0, 16, new Cañon(true));
+        //tm.setPieza(15, 16, new Cañon(true));
+        
+        tm.setPieza(1, 0, new Torre(false));
+        tm.setPieza(14, 0, new Torre(false));
+        tm.setPieza(1, 16, new Torre(true));
+        tm.setPieza(14, 16, new Torre(true));
+        
+        tm.setPieza(2, 0, new Catapulta(false));
+        tm.setPieza(13, 0, new Catapulta(false));
+        tm.setPieza(2, 16, new Catapulta(true));
+        tm.setPieza(13, 16, new Catapulta(true));
+        
+        tm.setPieza(3, 0, new Caballo(false));
+        tm.setPieza(12, 0, new Caballo(false));
+        tm.setPieza(3, 16, new Caballo(true));
+        tm.setPieza(12, 16, new Caballo(true));
+        
+        tm.setPieza(4, 0, new Brujo(false));
+        tm.setPieza(11, 0, new Brujo(false));
+        tm.setPieza(4, 16, new Brujo(true));
+        tm.setPieza(11, 16, new Brujo(true));
+        
+        tm.setPieza(5, 0, new Alfil(false));
+        tm.setPieza(10, 0, new Alfil(false));
+        tm.setPieza(5, 16, new Alfil(true));
+        tm.setPieza(10, 16, new Alfil(true));
+        
+        tm.setPieza(6, 0, new Hechicero(false));
+        //tm.setPieza(9, 0, new Paladin(false));
+        tm.setPieza(6, 16, new Hechicero(true));
+        //tm.setPieza(9, 16, new Paladin(true));
+        
+        tm.setPieza(7, 0, new Reina(false));
+        tm.setPieza(8, 0, new Rey(false));
+        tm.setPieza(7, 16, new Reina(true));
+        tm.setPieza(8, 16, new Rey(true));
+        
+        //tm.setPieza(0, 1, new Nao(false));
+        //tm.setPieza(15, 1, new Nao(false));
+        //tm.setPieza(0, 15, new Nao(true));
+        //tm.setPieza(15, 15, new Nao(true));
+        
+        //tm.setPieza(1, 1, new Ingeniero(false));
+        //tm.setPieza(14, 1, new Ingeniero(false));
+        //tm.setPieza(1, 15, new Ingeniero(true));
+        //tm.setPieza(14, 15, new Ingeniero(true));
+        
+        tm.setPieza(2, 1, new Ariete(false));
+        tm.setPieza(13, 1, new Ariete(false));
+        tm.setPieza(2, 15, new Ariete(true));
+        tm.setPieza(13, 15, new Ariete(true));
+        
+        //tm.setPieza(3, 1, new Constructor(false));
+        //tm.setPieza(12, 1, new Constructor(false));
+        //tm.setPieza(3, 15, new Constructor(true));
+        //tm.setPieza(12, 15, new Constructor(true));
+        
+        tm.setPieza(4, 1, new Peon(false));
+        tm.setPieza(11, 1, new Peon(false));
+        tm.setPieza(4, 15, new Peon(true));
+        tm.setPieza(11, 15, new Peon(true));
+        
+        tm.setPieza(5, 1, new Peon(false));
+        tm.setPieza(10, 1, new Peon(false));
+        tm.setPieza(5, 15, new Peon(true));
+        tm.setPieza(10, 15, new Peon(true));
+        
+        //tm.setPieza(6, 1, new PeonLoco(false));
+        //tm.setPieza(9, 1, new PeonLoco(false));
+        //tm.setPieza(6, 15, new PeonLoco(true));
+        //tm.setPieza(9, 15, new PeonLoco(true));
+        
+        //tm.setPieza(7, 1, new SuperPeon(false));
+        //tm.setPieza(8, 1, new SuperPeon(false));
+        //tm.setPieza(7, 15, new SuperPeon(true));
+        //tm.setPieza(8, 15, new SuperPeon(true));
+        
+        //tm.setPieza(0, 2, new Ballesta(false));
+        //tm.setPieza(15, 2, new Ballesta(false));
+        //tm.setPieza(0, 14, new Ballesta(true));
+        //tm.setPieza(15, 14, new Ballesta(true));
+        
+        //tm.setPieza(1, 2, new Arquero(false));
+        //tm.setPieza(14, 2, new Arquero(false));
+        //tm.setPieza(1, 14, new Arquero(true));
+        //tm.setPieza(14, 14, new Arquero(true));
+        
+        //tm.setPieza(2, 2, new Arquero(false));
+        //tm.setPieza(13, 2, new Arquero(false));
+        //tm.setPieza(2, 14, new Arquero(true));
+        //tm.setPieza(13, 14, new Arquero(true));
+        
+        tm.setPieza(3, 2, new Defensor(false));
+        tm.setPieza(12, 2, new Defensor(false));
+        tm.setPieza(3, 14, new Defensor(true));
+        tm.setPieza(12, 14, new Defensor(true));
+        
+        tm.setPieza(0, 3, new Peon(false));
+        tm.setPieza(15, 3, new Peon(false));
+        tm.setPieza(0, 13, new Peon(true));
+        tm.setPieza(15, 13, new Peon(true));
+        
+        //tm.setPieza(1, 3, new PeonLoco(false));
+        //tm.setPieza(14, 3, new PeonLoco(false));
+        //tm.setPieza(1, 13, new PeonLoco(true));
+        //tm.setPieza(14, 13, new PeonLoco(true));
+        
+        tm.setPieza(2, 3, new Peon(false));
+        tm.setPieza(13, 3, new Peon(false));
+        tm.setPieza(2, 13, new Peon(true));
+        tm.setPieza(13, 13, new Peon(true));
         return tm;
     }
 
