@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import pieza.Ariete;
 import pieza.Catapulta;
 import pieza.Defensor;
+import pieza.Hechicero;
 import pieza.Peon;
 import tablero.TableroManager;
 import util.Settings;
@@ -22,6 +23,7 @@ public class Main {
         
         tablero.setPieza(10, Settings.Y - 3, new Catapulta(true));
         tablero.setPieza(6, 3, new Catapulta(false));
+        tablero.setPieza(2, 5, new Hechicero(false));
         
         tablero.getJugadorBlanco().getMano().addCarta(new TorreC(true));
         tablero.getJugadorBlanco().getMano().addCarta(new TorreC(true));
