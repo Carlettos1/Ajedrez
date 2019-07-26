@@ -1,4 +1,4 @@
-package vista;
+package vista;//GEN-LINE:variables
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -14,18 +14,31 @@ import util.Settings;
 
 public final class TableroVista extends javax.swing.JPanel {
 
-    private final JButton botonUsarHabilidad, botonInfo, botonInfoHabilidad;
-    private final JLabel label, movimientos, turno;
-    private final JTextField informacionExtra;
+    private JButton botonUsarHabilidad, botonInfo, botonInfoHabilidad;
+    private JLabel label, movimientos, turno;
+    private JTextField informacionExtra;
 
     private final TableroManager tablero;
 
     public TableroVista(TableroManager tablero) {
-        initComponents();
         this.tablero = tablero;
+        initComponents();
+
+        for (int x = 0; x < tablero.getColumnas(); x++) {
+            for (int y = 0; y < tablero.getFilas(); y++) {
+                tablero.getEscaque(x, y).setBounds(x * Settings.TILE_SIZE + Settings.ANCHURA_JUGADOR + 10, y * Settings.TILE_SIZE, Settings.TILE_SIZE, Settings.TILE_SIZE);
+                tablero.getEscaque(x, y).setVisible(true);
+                add(tablero.getEscaque(x, y));
+            }
+        }
+        repaint();
+    }
+
+    private void initComponents() {
+        setLayout(null);
 
         label = new JLabel("Acá va la info adicional:");
-        label.setBounds((tablero.getColumnas()) * Settings.TILE_SIZE + 20+ Settings.ANCHURA_JUGADOR, 60, Settings.ANCHO_BOTON, 20);
+        label.setBounds((tablero.getColumnas()) * Settings.TILE_SIZE + 20 + Settings.ANCHURA_JUGADOR, 60, Settings.ANCHO_BOTON, 20);
         add(label);
 
         informacionExtra = new JTextField();
@@ -85,21 +98,12 @@ public final class TableroVista extends javax.swing.JPanel {
         add(botonInfoHabilidad);
 
         movimientos = new JLabel("0 movimientos de " + tablero.getJugadorBlanco().getMovimientosPorTurno());
-        movimientos.setBounds((tablero.getColumnas()) * Settings.TILE_SIZE + 20+ Settings.ANCHURA_JUGADOR, 230, Settings.ANCHO_BOTON, 20);
+        movimientos.setBounds((tablero.getColumnas()) * Settings.TILE_SIZE + 20 + Settings.ANCHURA_JUGADOR, 230, Settings.ANCHO_BOTON, 20);
         add(movimientos);
-        
-        turno = new JLabel("turno de los " + tablero.getJugadorBlanco().getColor());
-        turno.setBounds((tablero.getColumnas()) * Settings.TILE_SIZE + 20+ Settings.ANCHURA_JUGADOR, 270, Settings.ANCHO_BOTON, 20);
-        add(turno);
 
-        for (int x = 0; x < tablero.getColumnas(); x++) {
-            for (int y = 0; y < tablero.getFilas(); y++) {
-                tablero.getEscaque(x, y).setBounds(x * Settings.TILE_SIZE + Settings.ANCHURA_JUGADOR + 10, y * Settings.TILE_SIZE, Settings.TILE_SIZE, Settings.TILE_SIZE);
-                tablero.getEscaque(x, y).setVisible(true);
-                add(tablero.getEscaque(x, y));
-            }
-        }
-        repaint();
+        turno = new JLabel("turno de los " + tablero.getJugadorBlanco().getColor());
+        turno.setBounds((tablero.getColumnas()) * Settings.TILE_SIZE + 20 + Settings.ANCHURA_JUGADOR, 270, Settings.ANCHO_BOTON, 20);
+        add(turno);
     }
 
     public JLabel getMovimientos() {
@@ -109,13 +113,6 @@ public final class TableroVista extends javax.swing.JPanel {
     public JLabel getTurno() {
         return turno;
     }
-
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
-
-        setLayout(null);
-    }// </editor-fold>//GEN-END:initComponents
 
     @Override
     public void paint(Graphics g) {
@@ -145,6 +142,4 @@ public final class TableroVista extends javax.swing.JPanel {
                     Settings.TILE_SIZE, Settings.TILE_SIZE);
         }
     }
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    // End of variables declaration//GEN-END:variables
 }

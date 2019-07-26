@@ -28,7 +28,7 @@ public class Torre extends Pieza {
         if (!escaqueFinal.isVacio()) {
             return false;
         }
-        
+
         if (seHaMovidoEsteTurno()) {
             return false;
         }
@@ -66,7 +66,7 @@ public class Torre extends Pieza {
         if (escaqueFinal.isVacio()) {
             return false;
         }
-        
+
         if (seHaMovidoEsteTurno()) {
             return false;
         }
@@ -170,7 +170,7 @@ public class Torre extends Pieza {
         if (!super.canUsarHabilidad(tablero, escaqueInicio, informacionExtra, jugador)) {
             return false;
         }
-        
+
         if (seHaMovidoEsteTurno()) {
             return false;
         }
@@ -207,70 +207,98 @@ public class Torre extends Pieza {
                 escaquesTorres.addAll(tmp);
             }
         }
-        escaquesTorres = ordenarTorres(informacionExtra, escaquesTorres, tablero);
 
-        for (Escaque torre : escaquesTorres) {
-            torre.getPieza().setCdActual(torre.getPieza().getHabilidad().getCD());
-            torre.getPieza().setSeHaMovidoEsteTurno(true);
-        }
+        escaquesTorres = ordenarTorres(informacionExtra, escaquesTorres, tablero);
 
         switch (informacionExtra) {
             case "arriba":
                 escaquesTorres.forEach((torre) -> {
+                    torre.getPieza().setSeHaMovidoEsteTurno(false);
                     for (int i = 0; i < Settings.Y; i++) {
                         if (i == torre.getLocalizacion().y) {
+                            torre.getPieza().setSeHaMovidoEsteTurno(true);
                             break;
                         }
                         Escaque escaqueObjetivo = tablero.getEscaque(torre.getLocalizacion().x, i);
-                        if (canComer(tablero, torre, escaqueObjetivo)) {
+                        if (torre.getPieza().canComer(tablero, torre, escaqueObjetivo)) {
                             torre.comerPieza(escaqueObjetivo);
-                        } else if (canMover(tablero, torre, escaqueObjetivo)) {
+                            escaqueObjetivo.getPieza().setCdActual(escaqueObjetivo.getPieza().getHabilidad().getCD());
+                            escaqueObjetivo.getPieza().setSeHaMovidoEsteTurno(true);
+                            break;
+                        } else if (torre.getPieza().canMover(tablero, torre, escaqueObjetivo)) {
                             torre.moverPieza(escaqueObjetivo);
+                            escaqueObjetivo.getPieza().setCdActual(escaqueObjetivo.getPieza().getHabilidad().getCD());
+                            escaqueObjetivo.getPieza().setSeHaMovidoEsteTurno(true);
+                            break;
                         }
                     }
                 });
                 break;
             case "abajo":
                 escaquesTorres.forEach((torre) -> {
+                    torre.getPieza().setSeHaMovidoEsteTurno(false);
                     for (int i = Settings.Y - 1; i >= 0; i--) {
                         if (i == torre.getLocalizacion().y) {
+                            torre.getPieza().setSeHaMovidoEsteTurno(true);
                             break;
                         }
                         Escaque escaqueObjetivo = tablero.getEscaque(torre.getLocalizacion().x, i);
-                        if (canComer(tablero, torre, escaqueObjetivo)) {
+                        if (torre.getPieza().canComer(tablero, torre, escaqueObjetivo)) {
                             torre.comerPieza(escaqueObjetivo);
-                        } else if (canMover(tablero, torre, escaqueObjetivo)) {
+                            escaqueObjetivo.getPieza().setCdActual(escaqueObjetivo.getPieza().getHabilidad().getCD());
+                            escaqueObjetivo.getPieza().setSeHaMovidoEsteTurno(true);
+                            break;
+                        } else if (torre.getPieza().canMover(tablero, torre, escaqueObjetivo)) {
                             torre.moverPieza(escaqueObjetivo);
+                            escaqueObjetivo.getPieza().setCdActual(escaqueObjetivo.getPieza().getHabilidad().getCD());
+                            escaqueObjetivo.getPieza().setSeHaMovidoEsteTurno(true);
+                            break;
                         }
                     }
                 });
                 break;
             case "derecha":
                 escaquesTorres.forEach((torre) -> {
+                    torre.getPieza().setSeHaMovidoEsteTurno(false);
                     for (int i = Settings.X - 1; i >= 0; i--) {
                         if (i == torre.getLocalizacion().x) {
+                            torre.getPieza().setSeHaMovidoEsteTurno(true);
                             break;
                         }
                         Escaque escaqueObjetivo = tablero.getEscaque(i, torre.getLocalizacion().y);
-                        if (canComer(tablero, torre, escaqueObjetivo)) {
+                        if (torre.getPieza().canComer(tablero, torre, escaqueObjetivo)) {
                             torre.comerPieza(escaqueObjetivo);
-                        } else if (canMover(tablero, torre, escaqueObjetivo)) {
+                            escaqueObjetivo.getPieza().setCdActual(escaqueObjetivo.getPieza().getHabilidad().getCD());
+                            escaqueObjetivo.getPieza().setSeHaMovidoEsteTurno(true);
+                            break;
+                        } else if (torre.getPieza().canMover(tablero, torre, escaqueObjetivo)) {
                             torre.moverPieza(escaqueObjetivo);
+                            escaqueObjetivo.getPieza().setCdActual(escaqueObjetivo.getPieza().getHabilidad().getCD());
+                            escaqueObjetivo.getPieza().setSeHaMovidoEsteTurno(true);
+                            break;
                         }
                     }
                 });
                 break;
             case "izquierda":
                 escaquesTorres.forEach((torre) -> {
+                    torre.getPieza().setSeHaMovidoEsteTurno(false);
                     for (int i = 0; i < Settings.X; i++) {
                         if (i == torre.getLocalizacion().x) {
+                            torre.getPieza().setSeHaMovidoEsteTurno(true);
                             break;
                         }
                         Escaque escaqueObjetivo = tablero.getEscaque(i, torre.getLocalizacion().y);
-                        if (canComer(tablero, torre, escaqueObjetivo)) {
+                        if (torre.getPieza().canComer(tablero, torre, escaqueObjetivo)) {
                             torre.comerPieza(escaqueObjetivo);
-                        } else if (canMover(tablero, torre, escaqueObjetivo)) {
+                            escaqueObjetivo.getPieza().setCdActual(escaqueObjetivo.getPieza().getHabilidad().getCD());
+                            escaqueObjetivo.getPieza().setSeHaMovidoEsteTurno(true);
+                            break;
+                        } else if (torre.getPieza().canMover(tablero, torre, escaqueObjetivo)) {
                             torre.moverPieza(escaqueObjetivo);
+                            escaqueObjetivo.getPieza().setCdActual(escaqueObjetivo.getPieza().getHabilidad().getCD());
+                            escaqueObjetivo.getPieza().setSeHaMovidoEsteTurno(true);
+                            break;
                         }
                     }
                 });
