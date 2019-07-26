@@ -8,7 +8,8 @@ public enum EnumTipo {
     heroica("her"),
     gigante("gig"),
     pequeña("peq"),
-    transportable("tp");
+    transportable("tp"),
+    impenetrable("imp");
 
     private final String id;
 

@@ -68,22 +68,34 @@ public class Ariete extends Pieza {
 
     @Override
     public void habilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra, Jugador jugador) {
-
         int casillasPasadas = 0;
         switch (informacionExtra) {
             case "arriba":
                 for (int y = escaqueInicio.getLocalizacion().y - 1; y >= 0; y--) {
                     if (tablero.getEscaque(escaqueInicio.getLocalizacion().x, y).isVacio()) {
                         casillasPasadas++;
+                    } else if (tablero.getEscaque(escaqueInicio.getLocalizacion().x, y).getPieza().getTipos().contains(EnumTipo.impenetrable)) {
+                        escaqueInicio.quitarPieza();
+                        return;
                     }
                     if (y - 1 == 0 || !tablero.getEscaque(escaqueInicio.getLocalizacion().x, y).isVacio()) {
                         for (int y2 = 0; y2 <= casillasPasadas / 5; y2++) {
-                            tablero.quitarPieza(escaqueInicio.getLocalizacion().x, y - y2);
                             if (y - y2 == 0 || y2 == casillasPasadas / 5) {
+                                if (!tablero.getEscaque(escaqueInicio.getLocalizacion().x, y - y2).isVacio()
+                                        && tablero.getPieza(escaqueInicio.getLocalizacion().x, y - y2).getTipos().contains(EnumTipo.impenetrable)) {
+                                    escaqueInicio.quitarPieza();
+                                    return;
+                                }
                                 tablero.setPieza(escaqueInicio.getLocalizacion().x, y - y2, this);
                                 escaqueInicio.quitarPieza();
                                 break;
                             }
+                            if (!tablero.getEscaque(escaqueInicio.getLocalizacion().x, y - y2).isVacio()
+                                    && tablero.getPieza(escaqueInicio.getLocalizacion().x, y - y2).getTipos().contains(EnumTipo.impenetrable)) {
+                                escaqueInicio.quitarPieza();
+                                return;
+                            }
+                            tablero.quitarPieza(escaqueInicio.getLocalizacion().x, y - y2);
                         }
                         break;
                     }
@@ -93,15 +105,28 @@ public class Ariete extends Pieza {
                 for (int y = escaqueInicio.getLocalizacion().y + 1; y < Settings.Y; y++) {
                     if (tablero.getEscaque(escaqueInicio.getLocalizacion().x, y).isVacio()) {
                         casillasPasadas++;
+                    } else if (tablero.getEscaque(escaqueInicio.getLocalizacion().x, y).getPieza().getTipos().contains(EnumTipo.impenetrable)) {
+                        escaqueInicio.quitarPieza();
+                        return;
                     }
                     if (y + 1 == Settings.Y || !tablero.getEscaque(escaqueInicio.getLocalizacion().x, y).isVacio()) {
                         for (int y2 = 0; y2 <= casillasPasadas / 5; y2++) {
-                            tablero.quitarPieza(escaqueInicio.getLocalizacion().x, y + y2);
                             if (y + y2 == Settings.Y - 1 || y2 == casillasPasadas / 5) {
+                                if (!tablero.getEscaque(escaqueInicio.getLocalizacion().x, y + y2).isVacio()
+                                        && tablero.getPieza(escaqueInicio.getLocalizacion().x, y + y2).getTipos().contains(EnumTipo.impenetrable)) {
+                                    escaqueInicio.quitarPieza();
+                                    return;
+                                }
                                 tablero.setPieza(escaqueInicio.getLocalizacion().x, y + y2, this);
                                 escaqueInicio.quitarPieza();
                                 break;
                             }
+                            if (!tablero.getEscaque(escaqueInicio.getLocalizacion().x, y + y2).isVacio()
+                                    && tablero.getPieza(escaqueInicio.getLocalizacion().x, y + y2).getTipos().contains(EnumTipo.impenetrable)) {
+                                escaqueInicio.quitarPieza();
+                                return;
+                            }
+                            tablero.quitarPieza(escaqueInicio.getLocalizacion().x, y + y2);
                         }
                         break;
                     }
@@ -111,15 +136,28 @@ public class Ariete extends Pieza {
                 for (int x = escaqueInicio.getLocalizacion().x + 1; x < Settings.X; x++) {
                     if (tablero.getEscaque(x, escaqueInicio.getLocalizacion().y).isVacio()) {
                         casillasPasadas++;
+                    } else if (tablero.getEscaque(x, escaqueInicio.getLocalizacion().y).getPieza().getTipos().contains(EnumTipo.impenetrable)) {
+                        escaqueInicio.quitarPieza();
+                        return;
                     }
                     if (x + 1 == Settings.X || !tablero.getEscaque(x, escaqueInicio.getLocalizacion().y).isVacio()) {
                         for (int x2 = 0; x2 <= casillasPasadas / 5; x2++) {
-                            tablero.quitarPieza(x + x2, escaqueInicio.getLocalizacion().y);
                             if (x + x2 == Settings.X - 1 || x2 == casillasPasadas / 5) {
+                                if (!tablero.getEscaque(x + x2, escaqueInicio.getLocalizacion().y).isVacio()
+                                        && tablero.getPieza(x + x2, escaqueInicio.getLocalizacion().y).getTipos().contains(EnumTipo.impenetrable)) {
+                                    escaqueInicio.quitarPieza();
+                                    return;
+                                }
                                 tablero.setPieza(x + x2, escaqueInicio.getLocalizacion().y, this);
                                 escaqueInicio.quitarPieza();
                                 break;
                             }
+                            if (!tablero.getEscaque(x + x2, escaqueInicio.getLocalizacion().y).isVacio()
+                                    && tablero.getPieza(x + x2, escaqueInicio.getLocalizacion().y).getTipos().contains(EnumTipo.impenetrable)) {
+                                escaqueInicio.quitarPieza();
+                                return;
+                            }
+                            tablero.quitarPieza(x + x2, escaqueInicio.getLocalizacion().y);
                         }
                         break;
                     }
@@ -129,17 +167,30 @@ public class Ariete extends Pieza {
                 for (int x = escaqueInicio.getLocalizacion().x - 1; x >= 0; x--) {
                     if (tablero.getEscaque(x, escaqueInicio.getLocalizacion().y).isVacio()) {
                         casillasPasadas++;
+                    } else if (tablero.getEscaque(x, escaqueInicio.getLocalizacion().y).getPieza().getTipos().contains(EnumTipo.impenetrable)) {
+                        escaqueInicio.quitarPieza();
+                        return;
                     }
                     if (x == 0 || !tablero.getEscaque(x, escaqueInicio.getLocalizacion().y).isVacio()) {
                         for (int x2 = 0; x2 <= casillasPasadas / 5; x2++) {
-                            tablero.quitarPieza(x - x2, escaqueInicio.getLocalizacion().y);
                             if (x - x2 == 0 || x2 == casillasPasadas / 5) {
+                                if (!tablero.getEscaque(x - x2, escaqueInicio.getLocalizacion().y).isVacio()
+                                        && tablero.getPieza(x - x2, escaqueInicio.getLocalizacion().y).getTipos().contains(EnumTipo.impenetrable)) {
+                                    escaqueInicio.quitarPieza();
+                                    return;
+                                }
                                 tablero.setPieza(x - x2, escaqueInicio.getLocalizacion().y, this);
                                 escaqueInicio.quitarPieza();
                                 break;
                             }
-                            break;
+                            if (!tablero.getEscaque(x - x2, escaqueInicio.getLocalizacion().y).isVacio()
+                                    && tablero.getPieza(x - x2, escaqueInicio.getLocalizacion().y).getTipos().contains(EnumTipo.impenetrable)) {
+                                escaqueInicio.quitarPieza();
+                                return;
+                            }
+                            tablero.quitarPieza(x - x2, escaqueInicio.getLocalizacion().y);
                         }
+                        break;
                     }
                 }
                 break;

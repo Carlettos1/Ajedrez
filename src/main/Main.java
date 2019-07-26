@@ -5,6 +5,8 @@ import carta.summon.TorreC;
 import javax.swing.JFrame;
 import pieza.Ariete;
 import pieza.Catapulta;
+import pieza.Defensor;
+import pieza.Peon;
 import tablero.TableroManager;
 import util.Settings;
 import vista.Setup;
@@ -15,7 +17,8 @@ public class Main {
     public static void main(String[] args) {
         TableroManager tablero = TableroManager.getDefaultState();
         tablero.setPieza(8, Settings.Y - 3, new Ariete(true));
-        tablero.setPieza(8, 3, new Ariete(false));
+        tablero.setPieza(8, 1, new Defensor(false));
+        tablero.setPieza(8, 3, new Peon(false));
         
         tablero.setPieza(10, Settings.Y - 3, new Catapulta(true));
         tablero.setPieza(6, 3, new Catapulta(false));
