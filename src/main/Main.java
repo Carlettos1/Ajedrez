@@ -1,13 +1,15 @@
 package main;
 
-import carta.mejoras.UnTurnoC;
-import carta.summon.TorreC;
+import cartas.mejoras.UnTurnoC;
+import cartas.summon.TorreC;
+import estructuras.Portal;
 import javax.swing.JFrame;
-import pieza.Ariete;
-import pieza.Catapulta;
-import pieza.Defensor;
-import pieza.Hechicero;
-import pieza.Peon;
+import piezas.Ariete;
+import piezas.Caballo;
+import piezas.Catapulta;
+import piezas.Defensor;
+import piezas.Hechicero;
+import piezas.Peon;
 import tablero.TableroManager;
 import util.Settings;
 import vista.Setup;
@@ -24,6 +26,9 @@ public class Main {
         tablero.setPieza(10, Settings.Y - 3, new Catapulta(true));
         tablero.setPieza(6, 3, new Catapulta(false));
         tablero.setPieza(2, 5, new Hechicero(false));
+        
+        tablero.setPieza(0, 7, new Caballo(true));
+        tablero.setEstructura(0, 7, new Portal(true, true));
         
         tablero.getJugadorBlanco().getMano().addCarta(new TorreC(true));
         tablero.getJugadorBlanco().getMano().addCarta(new TorreC(true));

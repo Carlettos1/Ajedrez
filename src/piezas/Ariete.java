@@ -1,8 +1,8 @@
-package pieza;
+package piezas;
 
 import java.util.Arrays;
 import jugador.Jugador;
-import pieza.base.Pieza;
+import piezas.base.Pieza;
 import tablero.Escaque;
 import tablero.TableroManager;
 import tipo.EnumTipo;
@@ -95,7 +95,7 @@ public class Ariete extends Pieza {
                                 escaqueInicio.quitarPieza();
                                 return;
                             }
-                            tablero.quitarPieza(escaqueInicio.getLocalizacion().x, y - y2);
+                            tablero.quitarEntidad(escaqueInicio.getLocalizacion().x, y - y2);
                         }
                         break;
                     }
@@ -126,7 +126,7 @@ public class Ariete extends Pieza {
                                 escaqueInicio.quitarPieza();
                                 return;
                             }
-                            tablero.quitarPieza(escaqueInicio.getLocalizacion().x, y + y2);
+                            tablero.quitarEntidad(escaqueInicio.getLocalizacion().x, y + y2);
                         }
                         break;
                     }
@@ -157,7 +157,7 @@ public class Ariete extends Pieza {
                                 escaqueInicio.quitarPieza();
                                 return;
                             }
-                            tablero.quitarPieza(x + x2, escaqueInicio.getLocalizacion().y);
+                            tablero.quitarEntidad(x + x2, escaqueInicio.getLocalizacion().y);
                         }
                         break;
                     }
@@ -188,7 +188,7 @@ public class Ariete extends Pieza {
                                 escaqueInicio.quitarPieza();
                                 return;
                             }
-                            tablero.quitarPieza(x - x2, escaqueInicio.getLocalizacion().y);
+                            tablero.quitarEntidad(x - x2, escaqueInicio.getLocalizacion().y);
                         }
                         break;
                     }

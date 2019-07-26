@@ -1,19 +1,19 @@
-package carta.base;
+package cartas.base;
 
 import java.util.List;
 import java.util.Objects;
-import pieza.base.Pieza;
+import piezas.base.Pieza;
 import tablero.Escaque;
 
 public abstract class Carta {    
-    private final String nombre;
-    private final String descripcion;
-    private final boolean isBlanca;
-    private final Pieza piezaObjetivo;
-    private final int costeCarta;
-    private final int costeMana;
-    private final int costePieza;
-    private final List<Pieza> piezasAdmitidas;
+    protected final String nombre;
+    protected final String descripcion;
+    protected final boolean isBlanca;
+    protected final Pieza piezaObjetivo;
+    protected final int costeCarta;
+    protected final int costeMana;
+    protected final int costePieza;
+    protected final List<Pieza> piezasAdmitidas;
 
     public Carta(boolean isBlanca, Pieza piezaObjetivo, int costeCarta, int costeMana, int costePieza, List<Pieza> piezasAdmitidas, String nombre, String descripcion) {
         this.isBlanca = isBlanca;

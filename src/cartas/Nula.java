@@ -1,6 +1,6 @@
-package carta;
+package cartas;
 
-import carta.base.Carta;
+import cartas.base.Carta;
 import tablero.Escaque;
 
 public class Nula extends Carta{

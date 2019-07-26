@@ -5,7 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import jugador.Jugador;
 import util.Settings;
-import carta.base.ManoManager;
+import cartas.base.ManoManager;
 import java.awt.Graphics;
 
 public final class JugadorVista extends JPanel {

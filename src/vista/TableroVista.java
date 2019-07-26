@@ -69,13 +69,21 @@ public final class TableroVista extends javax.swing.JPanel {
         botonInfo.setBounds((tablero.getColumnas()) * Settings.TILE_SIZE + 20 + Settings.ANCHURA_JUGADOR, 130, Settings.ANCHO_BOTON, 30);
         botonInfo.addActionListener((ActionEvent e) -> {
             if (tablero.isAnyoneSelected()) {
-                Habilidad habilidad = tablero.getFirstSelected().getPieza().getHabilidad();
+                String nombre;
+                Habilidad habilidad;
+                if (tablero.getFirstSelected().hasPieza()) {
+                    habilidad = tablero.getFirstSelected().getPieza().getHabilidad();
+                     nombre = tablero.getFirstSelected().getPieza().getNombre();
+                } else {
+                    habilidad = tablero.getFirstSelected().getEstructura().getHabilidad();
+                     nombre = tablero.getFirstSelected().getEstructura().getNombre();
+                }
                 JOptionPane.showMessageDialog(null, habilidad.getNombre()
                         + "\nTiempo de enfriamiento = " + habilidad.getCD()
                         + "\nCoste de Maná = " + habilidad.getCosto()
                         + "\n\n" + habilidad.getDescripcion()
                         + "\n\n" + habilidad.getParametros(),
-                        tablero.getFirstSelected().getPieza().getNombre(), JOptionPane.INFORMATION_MESSAGE);
+                        nombre, JOptionPane.INFORMATION_MESSAGE);
             }
         });
         botonInfo.setVisible(true);
@@ -86,12 +94,19 @@ public final class TableroVista extends javax.swing.JPanel {
         botonInfoHabilidad.addActionListener((ActionEvent e) -> {
             if (tablero.isAnyoneSelected()) {
                 Escaque escaque = tablero.getFirstSelected();
-                Habilidad habilidad = escaque.getPieza().getHabilidad();
+                String nombre;
+                Habilidad habilidad;
+                if (escaque.hasPieza()) {
+                     habilidad = escaque.getPieza().getHabilidad();
+                     nombre = escaque.getPieza().getNombre();
+                } else {
+                     habilidad = escaque.getEstructura().getHabilidad();
+                     nombre = escaque.getEstructura().getNombre();
+                }
                 JOptionPane.showMessageDialog(null, habilidad.getNombre()
                         + "\nTiempo de enfriamiento actual = " + escaque.getPieza().getCdActual()
-                        + "\nManá Actual / Mana Necesario = " + escaque.getDueño().getMana() + " / " + habilidad.getCosto()
-                        + "\nSe ha movido este turno? " + (escaque.getPieza().seHaMovidoEsteTurno() ? "Si" : "No"),
-                        tablero.getFirstSelected().getPieza().getNombre(), JOptionPane.INFORMATION_MESSAGE);
+                        + "\nManá Actual / Mana Necesario = " + escaque.getDueño().getMana() + " / " + habilidad.getCosto(),
+                        nombre, JOptionPane.INFORMATION_MESSAGE);
             }
         });
         botonInfoHabilidad.setVisible(true);
@@ -121,13 +136,22 @@ public final class TableroVista extends javax.swing.JPanel {
             for (int y = 0; y < tablero.getFilas(); y++) {
                 //pintar cuadrados
                 g.setColor((x + y) % 2 == 0 ? Color.WHITE : Color.BLACK);
+                if (tablero.getEscaque(x, y).isFuenteDeMagia()) {
+                    g.setColor(new Color(125, 0, 125));
+                }
+
                 g.fillRect(x * Settings.TILE_SIZE + Settings.ANCHURA_JUGADOR + 10, y * Settings.TILE_SIZE, Settings.TILE_SIZE, Settings.TILE_SIZE);
 
                 g.setColor((x + y) % 2 == 1 ? Color.WHITE : Color.BLACK);
-                if (!tablero.getEscaque(x, y).isVacio()) {
+                if (tablero.getEscaque(x, y).hasPieza()) {
                     //TODO drawImage
                     g.drawString(tablero.getEscaque(x, y).getPieza().getNombre(), x * Settings.TILE_SIZE + 12 + Settings.ANCHURA_JUGADOR, y * Settings.TILE_SIZE + 15);
                     g.drawString(tablero.getEscaque(x, y).getPieza().isBlanca() ? "Blanco" : "Negro", x * Settings.TILE_SIZE + 12 + Settings.ANCHURA_JUGADOR, y * Settings.TILE_SIZE + 25);
+                }
+                if (tablero.getEscaque(x, y).hasEstructura()) {
+                    //TODO drawImage
+                    g.drawString(tablero.getEscaque(x, y).getEstructura().getNombre(), x * Settings.TILE_SIZE + 12 + Settings.ANCHURA_JUGADOR, y * Settings.TILE_SIZE + 15);
+                    g.drawString(tablero.getEscaque(x, y).getEstructura().isBlanca() ? "Blanco" : "Negro", x * Settings.TILE_SIZE + 12 + Settings.ANCHURA_JUGADOR, y * Settings.TILE_SIZE + 25);
                 }
             }
         }

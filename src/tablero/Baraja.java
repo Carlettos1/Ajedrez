@@ -1,6 +1,6 @@
 package tablero;
 
-import carta.base.Carta;
+import cartas.base.Carta;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,10 +1,10 @@
-package pieza;
+package piezas;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import jugador.Jugador;
-import pieza.base.Pieza;
+import piezas.base.Pieza;
 import tablero.Escaque;
 import tablero.TableroManager;
 import tipo.EnumTipo;

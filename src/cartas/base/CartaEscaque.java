@@ -1,6 +1,6 @@
-package carta.base;
+package cartas.base;
 
-import carta.Nula;
+import cartas.Nula;
 import javax.swing.JComponent;
 
 public class CartaEscaque extends JComponent{

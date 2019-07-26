@@ -1,7 +1,7 @@
-package pieza;
+package piezas;
 
 import java.util.Arrays;
-import pieza.base.Pieza;
+import piezas.base.Pieza;
 import tablero.Escaque;
 import tablero.TableroManager;
 import tipo.EnumTipo;

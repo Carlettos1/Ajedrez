@@ -58,6 +58,8 @@ public class RelojHandler {
                 for (Escaque escaque : escaques) {
                     escaque.getPieza().disminurCd();
                     escaque.getPieza().setSeHaMovidoEsteTurno(false);
+                    escaque.getEstructura().disminurCd();
+                    escaque.getEstructura().usar(tablero, escaque);
                     escaque.setIsSelected(false);
                 }
             }

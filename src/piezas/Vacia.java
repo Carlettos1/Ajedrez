@@ -1,15 +1,17 @@
-package pieza;
+package piezas;
 
 import java.awt.Graphics;
+import java.util.ArrayList;
 import jugador.Jugador;
 import tablero.Escaque;
 import tablero.TableroManager;
-import pieza.base.Pieza;
+import piezas.base.Pieza;
+import tipo.EnumTipo;
 
 public class Vacia extends Pieza{
 
     public Vacia() {
-        super("Vacia", false, null, null);
+        super("Vacia", false, new ArrayList<EnumTipo>(), null);
     }
 
     @Override

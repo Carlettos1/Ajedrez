@@ -1,4 +1,4 @@
-package pieza.base;
+package piezas.base;
 
 import java.awt.Graphics;
 import tablero.TableroManager;

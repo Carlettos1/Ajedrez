@@ -1,6 +1,6 @@
 package jugador;
 
-import carta.base.ManoManager;
+import cartas.base.ManoManager;
 
 public class Jugador {
 

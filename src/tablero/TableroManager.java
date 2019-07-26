@@ -1,6 +1,8 @@
 package tablero;
 
-import carta.base.ManoManager;
+import cartas.base.ManoManager;
+import estructuras.Inexistente;
+import estructuras.base.Estructura;
 import java.awt.Container;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
@@ -8,14 +10,14 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 import jugador.Jugador;
-import pieza.Alfil;
-import pieza.Caballo;
-import pieza.Peon;
-import pieza.Reina;
-import pieza.Rey;
-import pieza.Torre;
-import pieza.Vacia;
-import pieza.base.Pieza;
+import piezas.Alfil;
+import piezas.Caballo;
+import piezas.Peon;
+import piezas.Reina;
+import piezas.Rey;
+import piezas.Torre;
+import piezas.Vacia;
+import piezas.base.Pieza;
 import util.Settings;
 
 public class TableroManager {
@@ -46,7 +48,7 @@ public class TableroManager {
                         }
                         anteriorSelected.setIsSelected(false);
                     } else if (escaque.getPieza().isBlanca() == anteriorSelected.getPieza().isBlanca()) {
-                        if (escaque.getTablero().getReloj().isTurnoBlancas() == escaque.getPieza().isBlanca()) {
+                        if (escaque.getTablero().getReloj().isTurnoBlancas() == escaque.isEntidadBlanca()) {
                             anteriorSelected.setIsSelected(false);
                             escaque.setIsSelected(true);
                         } else {
@@ -61,9 +63,9 @@ public class TableroManager {
                     }
                 }
             } else {
-                if (escaque.getTablero().getReloj().isTurnoBlancas() && escaque.getPieza().isBlanca()) {
+                if (escaque.getTablero().getReloj().isTurnoBlancas() && escaque.isEntidadBlanca()) {
                     escaque.setIsSelected(true);
-                } else if (escaque.getTablero().getReloj().isTurnoBlancas() == escaque.getPieza().isBlanca()) {
+                } else if (escaque.getTablero().getReloj().isTurnoBlancas() == escaque.isEntidadBlanca()) {
                     escaque.setIsSelected(true);
                 }
             }
@@ -115,14 +117,16 @@ public class TableroManager {
         for (int y = 0; y < tablero.length; y++) {
             for (int x = 0; x < tablero[y].length; x++) {
                 tablero[y][x] = new Escaque(new Vacia(), new Point(x, y), this);
+                tablero[y][x].setEstructura(new Inexistente());
                 tablero[y][x].addMouseListener(listener);
             }
         }
         reloj.setTablero(this);
     }
 
-    public void quitarPieza(int x, int y) {
-        setPieza(x, y, new Vacia());
+    public void quitarEntidad(int x, int y) {
+        tablero[y][x].setPieza(new Vacia());
+        tablero[y][x].setEstructura(new Inexistente());
     }
 
     public Escaque getEscaque(int x, int y) {
@@ -130,7 +134,13 @@ public class TableroManager {
     }
 
     public void setPieza(int x, int y, Pieza pieza) {
+        quitarEntidad(x, y);
         tablero[y][x].setPieza(pieza);
+    }
+    
+    public void setEstructura(int x, int y, Estructura estructura) {
+        quitarEntidad(x, y);
+        tablero[y][x].setEstructura(estructura);
     }
 
     public Pieza getPieza(Point punto) {
@@ -139,6 +149,14 @@ public class TableroManager {
 
     public Pieza getPieza(int x, int y) {
         return getEscaque(x, y).getPieza();
+    }
+
+    public Estructura getEstructura(Point punto) {
+        return getEstructura(punto.x, punto.y);
+    }
+
+    public Estructura getEstructura(int x, int y) {
+        return getEscaque(x, y).getEstructura();
     }
 
     public Escaque[][] getTablero() {
@@ -213,7 +231,7 @@ public class TableroManager {
         tm.getJugadorBlanco().getMano().setTablero(tm);
         tm.getJugadorNegro().getMano().setTablero(tm);
 
-        if (Settings.X < 8 || Settings.Y < 8) {
+        if (Settings.X != 16 || Settings.Y != 17) {
             return tm;
         }
 
@@ -242,6 +260,11 @@ public class TableroManager {
         tm.setPieza(3, Settings.Y - 1, new Reina(true));
         tm.setPieza(Settings.X - 4, Settings.Y - 1, new Rey(true));
 
+        tm.getEscaque(0, 7).setIsFuenteDeMagia(true);
+        tm.getEscaque(0, 9).setIsFuenteDeMagia(true);
+        tm.getEscaque(Settings.X - 1, 7).setIsFuenteDeMagia(true);
+        tm.getEscaque(Settings.X - 1, 9).setIsFuenteDeMagia(true);
+        
         return tm;
     }
 

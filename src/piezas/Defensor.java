@@ -1,23 +1,23 @@
-package pieza;
+package piezas;
 
 import java.awt.Graphics;
 import java.util.Arrays;
 import jugador.Jugador;
+import piezas.base.Pieza;
 import tablero.Escaque;
 import tablero.TableroManager;
-import pieza.base.Pieza;
 import tipo.EnumTipo;
 import util.Habilidad;
 import util.Settings;
 
-public class Peon extends Pieza {
-
-    public Peon(boolean isBlanca) {
-        super("Peón", isBlanca,
-                Arrays.asList(new EnumTipo[]{EnumTipo.biologico, EnumTipo.transportable}),
-                new Habilidad("Coronar", "Corona al peón", 0, 1,
-                        "El peón debe situarse en el extremo contrario del tablero"
-                        + "\nRequiere que se indique la pieza en la que se va a transformar"));
+public class Defensor extends Pieza {
+    
+    public Defensor(boolean isBlanca) {
+        super("Defensor", isBlanca,
+                Arrays.asList(new EnumTipo[]{EnumTipo.biologico, EnumTipo.transportable, EnumTipo.impenetrable}),
+                new Habilidad("Defender", "Destruye al ariete y a la ballesta", 0, 0,
+                        "Si un ariete arremete contra él, es destruido"
+                        + "\nSi una ballesta lo ataca, la ballesta es destruida"));
     }
 
     @Override
@@ -84,52 +84,11 @@ public class Peon extends Pieza {
 
     @Override
     public boolean canUsarHabilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra, Jugador jugador) {
-        if (!super.canUsarHabilidad(tablero, escaqueInicio, informacionExtra, jugador)) {
-            return false;
-        }
-
-        if (seHaMovidoEsteTurno()) {
-            return false;
-        }
-        if (!(informacionExtra.equals("peon")
-                || informacionExtra.equals("alfil")
-                || informacionExtra.equals("torre")
-                || informacionExtra.equals("caballo")
-                || informacionExtra.equals("reina"))) {
-            return false;
-        }
-
-        if (!escaqueInicio.getPieza().isBlanca()) {//TODO
-            if (escaqueInicio.getLocalizacion().y == Settings.Y - 1) {
-                return true;
-            }
-        } else {
-            if (escaqueInicio.getLocalizacion().y == 0) {
-                return true;
-            }
-        }
-        return false;
+        return true;
     }
 
     @Override
     public void habilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra, Jugador jugador) {
-        if (informacionExtra.equals("peon")) {
-            escaqueInicio.setPieza(new Peon(escaqueInicio.getPieza().isBlanca()));
-        }
-        if (informacionExtra.equals("alfil")) {
-            escaqueInicio.setPieza(new Alfil(escaqueInicio.getPieza().isBlanca()));
-        }
-        if (informacionExtra.equals("torre")) {
-            escaqueInicio.setPieza(new Torre(escaqueInicio.getPieza().isBlanca()));
-        }
-        if (informacionExtra.equals("caballo")) {
-            escaqueInicio.setPieza(new Caballo(escaqueInicio.getPieza().isBlanca()));
-        }
-        if (informacionExtra.equals("reina")) {
-            escaqueInicio.setPieza(new Reina(escaqueInicio.getPieza().isBlanca()));
-        }
-        escaqueInicio.getPieza().setSeHaMovidoEsteTurno(true);
-        escaqueInicio.getPieza().setCdActual(escaqueInicio.getPieza().getHabilidad().getCD());
     }
 
     @Override

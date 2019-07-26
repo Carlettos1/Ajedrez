@@ -1,6 +1,6 @@
-package carta.base;
+package cartas.base;
 
-import carta.Nula;
+import cartas.Nula;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.HeadlessException;
