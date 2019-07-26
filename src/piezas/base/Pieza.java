@@ -44,6 +44,7 @@ public abstract class Pieza {
     public void habilidad(TableroManager tablero, Escaque escaqueInicio, String informacionExtra, Jugador jugador) {
         setCdActual(getHabilidad().getCD());
         setSeHaMovidoEsteTurno(true);
+        jugador.setMana(jugador.getMana() - getHabilidad().getCosto());
     }
 
     public void marcar(Graphics g, Escaque escaqueSeleccionado) {

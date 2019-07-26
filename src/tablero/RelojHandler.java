@@ -1,6 +1,7 @@
 package tablero;
 
 import jugador.Jugador;
+import piezas.Brujo;
 import vista.TableroVista;
 
 public class RelojHandler {
@@ -61,6 +62,13 @@ public class RelojHandler {
                     escaque.getEstructura().disminurCd();
                     escaque.getEstructura().usar(tablero, escaque);
                     escaque.setIsSelected(false);
+                    if(escaque.getPieza() instanceof Brujo){
+                        Brujo brujo =(Brujo)escaque.getPieza();
+                        brujo.dimTurnosInmovil();
+                        if(brujo.getTurnosInmovil() == 0 && brujo.hizoClick){
+                            brujo.habilidad(tablero, escaque, "", brujo.isBlanca() ? JugadorBlanco : jugadorNegro);
+                        }
+                    }
                 }
             }
         }

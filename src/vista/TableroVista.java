@@ -105,7 +105,8 @@ public final class TableroVista extends javax.swing.JPanel {
                 }
                 JOptionPane.showMessageDialog(null, habilidad.getNombre()
                         + "\nTiempo de enfriamiento actual = " + escaque.getPieza().getCdActual()
-                        + "\nManá Actual / Mana Necesario = " + escaque.getDueño().getMana() + " / " + habilidad.getCosto(),
+                        + "\nManá Actual / Mana Necesario = " + escaque.getDueño().getMana() + " / " + habilidad.getCosto()
+                        + (escaque.hasPieza() ? "\nSe ha movido este turno? " + escaque.getPieza().seHaMovidoEsteTurno() : ""),
                         nombre, JOptionPane.INFORMATION_MESSAGE);
             }
         });
